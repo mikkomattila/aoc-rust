@@ -10,7 +10,7 @@ impl DayResult for Day1 {
 }
 
 fn print_result_rows() {
-    let input = read_file_rows("day_1_input.txt");
+    let input = read_file_rows("day_1.txt");
     for row in input.iter() {
         println!("{}", row);
     }
