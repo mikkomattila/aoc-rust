@@ -1,18 +1,14 @@
-mod day_result;
-mod helpers;
-mod solutions;
-
+use advent_of_code_rust::helpers::print_result_for_day;
 use clap::Parser;
-use helpers::print_result_for_day;
 
 #[derive(Parser, Debug)]
 #[command(version, about, long_about = None)]
 struct Args {
     #[arg(short, long)]
-    day_number: String,
+    day: String,
 }
 
 fn main() {
     let args = Args::parse();
-    print_result_for_day(args.day_number.as_str());
+    print_result_for_day(args.day.as_str());
 }
