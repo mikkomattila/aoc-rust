@@ -3,7 +3,7 @@ mod helpers;
 mod solutions;
 
 use clap::Parser;
-use helpers::print_requested_day_result;
+use helpers::print_result_for_day;
 
 #[derive(Parser, Debug)]
 #[command(version, about, long_about = None)]
@@ -14,5 +14,5 @@ struct Args {
 
 fn main() {
     let args = Args::parse();
-    print_requested_day_result(args.day_number.as_str());
+    print_result_for_day(args.day_number.as_str());
 }

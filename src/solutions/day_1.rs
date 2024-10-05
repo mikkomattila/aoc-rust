@@ -1,6 +1,9 @@
 use crate::day_result::DayResult;
 use crate::helpers::read_file_rows;
 
+/**
+ * This struct will be for the result of day 1 of 2024.
+ */
 pub struct Day1;
 
 impl DayResult for Day1 {
