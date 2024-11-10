@@ -1,5 +1,6 @@
 use crate::day_result::DayResult;
 use crate::solutions::*;
+use reqwest::blocking::Client;
 use std::env;
 use std::fs;
 
@@ -28,4 +29,18 @@ pub fn read_file_rows(file_name: &str) -> Vec<String> {
 
     let lines: Vec<String> = contents.lines().map(|line| line.to_string()).collect();
     lines
+}
+
+pub fn fetch_input(day: u32, year: u32) -> String {
+    let session = env::var("AOC_SESSION").expect("AOC_SESSION not set");
+    let url = format!("https://adventofcode.com/{}/day/{}/input", year, day);
+    let client = Client::new();
+
+    client
+        .get(url)
+        .header("Cookie", format!("session={}", session))
+        .send()
+        .expect("Failed to fetch input")
+        .text()
+        .expect("Failed to read response text")
 }
