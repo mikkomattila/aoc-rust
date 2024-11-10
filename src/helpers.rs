@@ -1,5 +1,5 @@
 use crate::day_result::DayResult;
-use crate::solutions::*;
+use crate::days::*;
 use dotenv::dotenv;
 use reqwest::blocking::Client;
 use std::env;
