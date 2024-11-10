@@ -1,8 +1,8 @@
 use crate::day_result::DayResult;
 use crate::solutions::*;
+use dotenv::dotenv;
 use reqwest::blocking::Client;
 use std::env;
-use std::fs;
 
 /**
  * This function will print the result for the day number passed as argument.
@@ -18,29 +18,22 @@ pub fn print_result_for_day(day_number: &str) {
 }
 
 /**
- * This function will read the contents of a file and return a vector of strings.
+ * This function will read input for the specified day and year.
  * # Arguments
- * - `file_name` - The name of the file to read.
+ * - `day` - The day number for which the input should be fetched.
+ * - `year` - The year for which the input should be fetched.
  */
-pub fn read_file_rows(file_name: &str) -> Vec<String> {
-    let project_root = env::var("CARGO_MANIFEST_DIR").expect("CARGO_MANIFEST_DIR not set");
-    let file_path = format!("{}/src/data/{}", project_root, file_name);
-    let contents = fs::read_to_string(file_path).expect("Something went wrong reading the file");
-
-    let lines: Vec<String> = contents.lines().map(|line| line.to_string()).collect();
-    lines
-}
-
-pub fn fetch_input(day: u32, year: u32) -> String {
-    let session = env::var("AOC_SESSION").expect("AOC_SESSION not set");
+pub fn fetch_input(day: u32, year: u32) -> Vec<String> {
+    dotenv().ok();
+    let session = env::var("AOC_SESSION").expect("AOC_SESSION is not found in .env file");
     let url = format!("https://adventofcode.com/{}/day/{}/input", year, day);
-    let client = Client::new();
-
-    client
+    let day_input = Client::new()
         .get(url)
         .header("Cookie", format!("session={}", session))
         .send()
         .expect("Failed to fetch input")
         .text()
-        .expect("Failed to read response text")
+        .expect("Failed to read response text");
+
+    day_input.lines().map(|line| line.to_string()).collect()
 }

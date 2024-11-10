@@ -1,5 +1,5 @@
 use crate::day_result::DayResult;
-use crate::helpers::read_file_rows;
+use crate::helpers::fetch_input;
 
 /**
  * This struct will be for the result of day 1 of 2024.
@@ -13,7 +13,7 @@ impl DayResult for Day1 {
 }
 
 fn print_result_rows() {
-    let input = read_file_rows("day_1.txt");
+    let input = fetch_input(1, 2023);
     for row in input.iter() {
         println!("{}", row);
     }
