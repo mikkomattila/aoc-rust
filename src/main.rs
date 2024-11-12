@@ -1,4 +1,4 @@
-use advent_of_code_rust::helpers::print_result_for_day;
+use aoc_rust::helpers::print_result_for_day;
 use clap::Parser;
 
 #[derive(Parser, Debug)]

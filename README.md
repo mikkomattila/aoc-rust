@@ -1,4 +1,4 @@
-# advent-of-code-rust
+# AoC-Rust
 
 ## Overview
 
