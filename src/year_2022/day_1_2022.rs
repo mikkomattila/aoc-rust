@@ -2,7 +2,7 @@ use crate::day_result::DayResult;
 use crate::helpers::fetch_input;
 
 /**
- * Day 1 of 2023.
+ * Day 1 of 2022.
  */
 pub struct Day1;
 
@@ -94,6 +94,7 @@ mod tests {
             vec![10000],
         ];
         let result = split_and_parse_u32(&input);
+
         assert_eq!(result, expected);
     }
 }
