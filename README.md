@@ -1,4 +1,4 @@
-# AoC-Rust
+# aoc-rust
 
 ## Overview
 
@@ -8,11 +8,7 @@ This repository contains my solutions to the Advent of Code 2024 challenges, imp
 
 Before running the program, copy the `.env.example` file to `.env` and fill in your Advent of Code session token. You can find it by logging to [Advent of Code](https://adventofcode.com/) and copying the value of the session cookie.
 
-Run the program with Cargo. Specify the day of the challenge you want to execute. Optionally, you can also specify the year. If the year is not provided, the program defaults to 2024.
-
-### Examples
-
-With default year:
+### Cargo
 
 ```sh
 cargo run -- --day 1
@@ -21,10 +17,16 @@ cargo run -- --day 1
 With explicit year:
 
 ```sh
-cargo run -- --day  --year 2023
+cargo run -- --day  --year 2022
 ```
 
-## Solutions
+### Make
+
+```make
+make solution day=1 year=2022
+```
+
+## Available solutions
 
 ### 2022
 

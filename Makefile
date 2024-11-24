@@ -9,4 +9,4 @@ test:
 
 # Get solution for a specific day
 solution:
-	cargo run -- --day $(day)
+	cargo run -- --day $(day) --year $(year)
