@@ -17,14 +17,14 @@ impl DayResult for Day2 {
     }
 }
 
-#[derive(Debug, PartialEq, Eq, Hash)]
+#[derive(Debug, PartialEq, Eq, Hash, Clone, Copy)]
 enum Rps {
     Rock,
     Paper,
     Scissors,
 }
 
-#[derive(Debug, PartialEq, Eq, Hash)]
+#[derive(Debug, PartialEq, Eq, Hash, Clone, Copy)]
 enum RpsResult {
     Lose,
     Draw,
@@ -32,31 +32,12 @@ enum RpsResult {
 }
 
 fn get_result_1(input: &[String]) -> u32 {
-    let mut results: Vec<u32> = Vec::new();
-    let char_beats = char_beats_map();
-    let equal: HashMap<char, char> = equals_map();
-
-    for game in input {
-        println!("Game: {}", game);
-
-        let (player_1, player_2) = parse_game(game);
-
-        if equal.get(&player_1) == Some(&player_2) {
-            results.push(3);
-        } else if char_beats.get(&player_2) == Some(&player_1) {
-            results.push(6);
-        }
-
-        if player_2 == 'X' {
-            results.push(1);
-        } else if player_2 == 'Y' {
-            results.push(2);
-        } else if player_2 == 'Z' {
-            results.push(3);
-        }
+    let mut score: Vec<u32> = Vec::new();
+    let games = parse_rps_games(input);
+    for game in games {
+        score.push(get_result_score(game.0, game.1) + get_rps_score(game.1));
     }
-
-    results.iter().sum()
+    score.iter().sum()
 }
 
 fn get_result_2(input: &[String]) -> u32 {
@@ -127,6 +108,8 @@ fn char_beats_map() -> HashMap<char, char> {
     HashMap::from([('X', 'C'), ('Y', 'A'), ('Z', 'B')])
 }
 
+// REFACTORED ---------------------------------------
+
 fn round_end_map() -> HashMap<char, RpsResult> {
     HashMap::from([
         ('X', RpsResult::Lose),
@@ -144,6 +127,48 @@ fn rps_mapping() -> HashMap<char, Rps> {
         ('Y', Rps::Paper),
         ('Z', Rps::Scissors),
     ])
+}
+
+fn rps_beats_map() -> HashMap<Rps, Rps> {
+    HashMap::from([
+        (Rps::Rock, Rps::Scissors),
+        (Rps::Paper, Rps::Rock),
+        (Rps::Scissors, Rps::Paper),
+    ])
+}
+
+fn parse_rps_games(input: &[String]) -> Vec<(Rps, Rps)> {
+    let rps_mapping = rps_mapping();
+    let mut games = Vec::new();
+
+    for game in input {
+        let mut chars = game.chars().filter(|c: &char| !c.is_whitespace());
+        let p1_char = chars.next().unwrap();
+        let p2_char = chars.next().unwrap();
+
+        let p_1 = *rps_mapping.get(&p1_char).unwrap();
+        let p_2 = *rps_mapping.get(&p2_char).unwrap();
+
+        games.push((p_1, p_2));
+    }
+
+    games
+}
+
+fn get_result_score(p1: Rps, p2: Rps) -> u32 {
+    match p1 {
+        _ if p1 == p2 => 3,
+        _ if rps_beats_map().get(&p1) == Some(&p2) => 6,
+        _ => 0,
+    }
+}
+
+fn get_rps_score(value: Rps) -> u32 {
+    match value {
+        Rps::Rock => 1,
+        Rps::Paper => 2,
+        Rps::Scissors => 3,
+    }
 }
 
 #[cfg(test)]
