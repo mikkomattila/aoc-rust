@@ -25,13 +25,6 @@ fn get_result_2(input: &[String]) -> u32 {
 }
 
 fn calculate_sums(input: &[String]) -> Vec<u32> {
-    split_and_parse_u32(input)
-        .into_iter()
-        .map(|array| array.iter().sum())
-        .collect()
-}
-
-fn split_and_parse_u32(input: &[String]) -> Vec<Vec<u32>> {
     input
         .split(|s| s.is_empty())
         .map(|slice| {
@@ -40,6 +33,9 @@ fn split_and_parse_u32(input: &[String]) -> Vec<Vec<u32>> {
                 .map(|s| s.parse::<u32>().expect("Failed to parse string to u32"))
                 .collect()
         })
+        .collect::<Vec<Vec<u32>>>()
+        .into_iter()
+        .map(|array| array.iter().sum())
         .collect()
 }
 
@@ -57,44 +53,21 @@ mod tests {
     }
 
     #[test]
-    fn test_get_result_1_correct_answer() {
-        let input = get_test_input();
-        let result = get_result_1(&input);
-        let expected = 24000;
-
-        assert_eq!(result, expected);
+    fn test_get_result_1() {
+        let result = get_result_1(&get_test_input());
+        assert_eq!(result, 24000);
     }
 
     #[test]
-    fn test_get_result_2_correct_answer() {
-        let input = get_test_input();
-        let result = get_result_2(&input);
-        let expected = 45000;
-
-        assert_eq!(result, expected);
+    fn test_get_result_2() {
+        let result = get_result_2(&get_test_input());
+        assert_eq!(result, 45000);
     }
 
     #[test]
-    fn test_calculate_sums_correct_answer() {
-        let input = get_test_input();
-        let result = calculate_sums(&input);
+    fn test_calculate_sums() {
+        let result = calculate_sums(&get_test_input());
         let expected = vec![6000, 4000, 11000, 24000, 10000];
-
-        assert_eq!(result, expected);
-    }
-
-    #[test]
-    fn test_split_and_parse_u32_with_valid_input() {
-        let input = get_test_input();
-        let expected = vec![
-            vec![1000, 2000, 3000],
-            vec![4000],
-            vec![5000, 6000],
-            vec![7000, 8000, 9000],
-            vec![10000],
-        ];
-        let result = split_and_parse_u32(&input);
-
         assert_eq!(result, expected);
     }
 }
