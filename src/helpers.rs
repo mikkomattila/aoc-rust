@@ -13,6 +13,7 @@ use std::env;
 pub fn print_result_for_day(day_number: u8, year: u32) {
     match (year, day_number) {
         (2022, 1) => day_1_2022::Day1::print_day_result(),
+        (2022, 2) => day_2_2022::Day2::print_day_result(),
         (2024, 1) => day_1_2024::Day1::print_day_result(),
         _ => println!("Result for day {} in year {} not found", day_number, year),
     }
