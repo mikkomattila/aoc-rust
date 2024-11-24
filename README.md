@@ -12,41 +12,32 @@ This repository contains my solutions to Advent of Code challenges, implemented 
 | --- | ------------------------------------------------------- | ------------------------------------- |
 | 1   | [Calorie Counting](https://adventofcode.com/2022/day/1) | [Source](src/year_2022/day_1_2022.rs) |
 
-## Usage
+## Prerequisites and usage
+
+Make sure you have Rust and Cargo installed.
 
 Before running the program, copy the `.env.example` file to `.env` and fill in your Advent of Code session token. You can find it by logging to [Advent of Code](https://adventofcode.com/) and copying the value of the session cookie.
 
-Either build or run the program with Cargo. See examples below.
+Either run or build the program with Cargo. See examples below.
 
-### Using Make
+### Examples
 
-Run:
+**Run:**
 
 ```sh
-make solution day=1 year=2022
+cargo run -- --day 1 --year 2022
 ```
 
-Build:
+**Build:**
+
+1. Build with release configuration
 
 ```sh
-make build
-cd src/target/release/
-./aoc-rust --day 1 --year 2022
+cargo build --release
 ```
 
-### Using Cargo
-
-Run:
+2. Produced binary can be found from `src/target/release` and ran with the following command:
 
 ```sh
-cargo run -- --day 1
-cargo run -- --day  --year 2022
-```
-
-Build:
-
-```sh
-cargo build -r
-cd src/target/release/
 ./aoc-rust --day 1 --year 2022
 ```
