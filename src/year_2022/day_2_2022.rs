@@ -34,65 +34,72 @@ enum RpsResult {
 fn get_result_1(input: &[String]) -> u32 {
     let mut score: Vec<u32> = Vec::new();
     let games = parse_rps_games(input);
-    for game in games {
-        score.push(get_result_score(game.0, game.1) + get_rps_score(game.1));
+    for (p1, p2) in games {
+        score.push(get_result_score(p1, p2) + get_rps_score(p2));
     }
     score.iter().sum()
 }
 
 fn get_result_2(input: &[String]) -> u32 {
-    let mut results: Vec<u32> = Vec::new();
-
     let char_beats = char_beats_map();
     let equal = equals_map();
     let round_end = round_end_map();
     let p1 = rps_mapping();
 
-    for game in input {
-        let (player_1, player_2) = parse_game(game);
+    let mut score: Vec<u32> = Vec::new();
+    let games = parse_rps_games(input);
 
-        let p1 = p1.get(&player_1);
+    for (p1, p2) in games {
+        let round_end = round_end.get(&p2).unwrap();
 
-        let round_end_result = round_end.get(&player_2);
-
-        let mut p2_actual = player_2;
-
-        if p1 == Some(&Rps::Rock) && round_end_result == Some(&RpsResult::Win) {
-            p2_actual = 'Y';
-        } else if p1 == Some(&Rps::Rock) && round_end_result == Some(&RpsResult::Draw) {
-            p2_actual = 'X';
-        } else if p1 == Some(&Rps::Rock) && round_end_result == Some(&RpsResult::Lose) {
-            p2_actual = 'Z';
-        } else if p1 == Some(&Rps::Paper) && round_end_result == Some(&RpsResult::Win) {
-            p2_actual = 'Z';
-        } else if p1 == Some(&Rps::Paper) && round_end_result == Some(&RpsResult::Draw) {
-            p2_actual = 'Y';
-        } else if p1 == Some(&Rps::Paper) && round_end_result == Some(&RpsResult::Lose) {
-            p2_actual = 'X';
-        } else if p1 == Some(&Rps::Scissors) && round_end_result == Some(&RpsResult::Win) {
-            p2_actual = 'X';
-        } else if p1 == Some(&Rps::Scissors) && round_end_result == Some(&RpsResult::Draw) {
-            p2_actual = 'Z';
-        } else if p1 == Some(&Rps::Scissors) && round_end_result == Some(&RpsResult::Lose) {
-            p2_actual = 'Y';
-        }
-
-        if equal.get(&player_1) == Some(&p2_actual) {
-            results.push(3);
-        } else if char_beats.get(&p2_actual) == Some(&player_1) {
-            results.push(6);
-        }
-
-        if p2_actual == 'X' {
-            results.push(1);
-        } else if p2_actual == 'Y' {
-            results.push(2);
-        } else if p2_actual == 'Z' {
-            results.push(3);
-        }
+        score.push(get_result_score(p1, p2) + get_rps_score(p1));
     }
 
-    results.iter().sum()
+    // for game in input {
+    //     let (player_1, player_2) = parse_game(game);
+
+    //     let p1 = p1.get(&player_1);
+
+    //     let round_end_result = round_end.get(&player_2);
+
+    //     let mut p2_actual = player_2;
+
+    //     if p1 == Some(&Rps::Rock) && round_end_result == Some(&RpsResult::Win) {
+    //         p2_actual = 'Y';
+    //     } else if p1 == Some(&Rps::Rock) && round_end_result == Some(&RpsResult::Draw) {
+    //         p2_actual = 'X';
+    //     } else if p1 == Some(&Rps::Rock) && round_end_result == Some(&RpsResult::Lose) {
+    //         p2_actual = 'Z';
+    //     } else if p1 == Some(&Rps::Paper) && round_end_result == Some(&RpsResult::Win) {
+    //         p2_actual = 'Z';
+    //     } else if p1 == Some(&Rps::Paper) && round_end_result == Some(&RpsResult::Draw) {
+    //         p2_actual = 'Y';
+    //     } else if p1 == Some(&Rps::Paper) && round_end_result == Some(&RpsResult::Lose) {
+    //         p2_actual = 'X';
+    //     } else if p1 == Some(&Rps::Scissors) && round_end_result == Some(&RpsResult::Win) {
+    //         p2_actual = 'X';
+    //     } else if p1 == Some(&Rps::Scissors) && round_end_result == Some(&RpsResult::Draw) {
+    //         p2_actual = 'Z';
+    //     } else if p1 == Some(&Rps::Scissors) && round_end_result == Some(&RpsResult::Lose) {
+    //         p2_actual = 'Y';
+    //     }
+
+    //     if equal.get(&player_1) == Some(&p2_actual) {
+    //         score.push(3);
+    //     } else if char_beats.get(&p2_actual) == Some(&player_1) {
+    //         score.push(6);
+    //     }
+
+    //     if p2_actual == 'X' {
+    //         score.push(1);
+    //     } else if p2_actual == 'Y' {
+    //         score.push(2);
+    //     } else if p2_actual == 'Z' {
+    //         score.push(3);
+    //     }
+    // }
+
+    score.iter().sum()
 }
 
 fn parse_game(input: &str) -> (char, char) {
@@ -110,11 +117,11 @@ fn char_beats_map() -> HashMap<char, char> {
 
 // REFACTORED ---------------------------------------
 
-fn round_end_map() -> HashMap<char, RpsResult> {
+fn round_end_map() -> HashMap<Rps, RpsResult> {
     HashMap::from([
-        ('X', RpsResult::Lose),
-        ('Y', RpsResult::Draw),
-        ('Z', RpsResult::Win),
+        (Rps::Rock, RpsResult::Lose),
+        (Rps::Paper, RpsResult::Draw),
+        (Rps::Scissors, RpsResult::Win),
     ])
 }
 
