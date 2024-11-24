@@ -31,8 +31,22 @@ fn get_result_1(input: &[String]) -> i32 {
     }
 }
 
-fn get_result_2(input: &[String]) -> i32 {
-    0
+fn get_result_2(input: &[String]) -> u32 {
+    let split_input = split_and_parse_u32(input);
+    let mut results: Vec<u32> = Vec::new();
+    for array in split_input.iter() {
+        let mut sum = 0;
+        for item in array.iter() {
+            sum += item;
+        }
+        results.push(sum);
+    }
+
+    results.sort_by(|a, b| b.cmp(a));
+
+    let sum: u32 = results.iter().take(3).sum();
+
+    sum
 }
 
 fn split_and_parse_u32(input: &[String]) -> Vec<Vec<u32>> {
@@ -71,7 +85,7 @@ mod tests {
         ];
 
         let result = get_result_1(&input);
-        let expected = 6000;
+        let expected = 24000;
 
         assert_eq!(result, expected);
     }
