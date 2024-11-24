@@ -9,44 +9,26 @@ pub struct Day1;
 impl DayResult for Day1 {
     fn print_day_result() {
         let input = fetch_input(1, 2022);
-
         println!("Result 1: {}", get_result_1(&input));
         println!("Result 2: {}", get_result_2(&input));
     }
 }
 
-fn get_result_1(input: &[String]) -> i32 {
-    let split_input = split_and_parse_u32(input);
-    let mut results: Vec<u32> = Vec::new();
-    for array in split_input.iter() {
-        let mut sum = 0;
-        for item in array.iter() {
-            sum += item;
-        }
-        results.push(sum);
-    }
-    match results.iter().max() {
-        Some(max) => *max as i32,
-        None => 0,
-    }
+fn get_result_1(input: &[String]) -> u32 {
+    calculate_sums(input).into_iter().max().unwrap_or(0) as u32
 }
 
 fn get_result_2(input: &[String]) -> u32 {
-    let split_input = split_and_parse_u32(input);
-    let mut results: Vec<u32> = Vec::new();
-    for array in split_input.iter() {
-        let mut sum = 0;
-        for item in array.iter() {
-            sum += item;
-        }
-        results.push(sum);
-    }
+    let mut results = calculate_sums(input);
+    results.sort_unstable_by(|a, b| b.cmp(a));
+    results.iter().take(3).sum()
+}
 
-    results.sort_by(|a, b| b.cmp(a));
-
-    let sum: u32 = results.iter().take(3).sum();
-
-    sum
+fn calculate_sums(input: &[String]) -> Vec<u32> {
+    split_and_parse_u32(input)
+        .into_iter()
+        .map(|array| array.iter().sum())
+        .collect()
 }
 
 fn split_and_parse_u32(input: &[String]) -> Vec<Vec<u32>> {
@@ -65,25 +47,18 @@ fn split_and_parse_u32(input: &[String]) -> Vec<Vec<u32>> {
 mod tests {
     use super::*;
 
+    static TEST_INPUT: &[&str] = &[
+        "1000", "2000", "3000", "", "4000", "", "5000", "6000", "", "7000", "8000", "9000", "",
+        "10000",
+    ];
+
+    fn get_test_input() -> Vec<String> {
+        TEST_INPUT.iter().map(|&s| s.to_string()).collect()
+    }
+
     #[test]
     fn test_get_result_1_correct_answer() {
-        let input = vec![
-            "1000".to_string(),
-            "2000".to_string(),
-            "3000".to_string(),
-            "".to_string(),
-            "4000".to_string(),
-            "".to_string(),
-            "5000".to_string(),
-            "6000".to_string(),
-            "".to_string(),
-            "7000".to_string(),
-            "8000".to_string(),
-            "9000".to_string(),
-            "".to_string(),
-            "10000".to_string(),
-        ];
-
+        let input = get_test_input();
         let result = get_result_1(&input);
         let expected = 24000;
 
@@ -92,23 +67,7 @@ mod tests {
 
     #[test]
     fn test_get_result_2_correct_answer() {
-        let input = vec![
-            "1000".to_string(),
-            "2000".to_string(),
-            "3000".to_string(),
-            "".to_string(),
-            "4000".to_string(),
-            "".to_string(),
-            "5000".to_string(),
-            "6000".to_string(),
-            "".to_string(),
-            "7000".to_string(),
-            "8000".to_string(),
-            "9000".to_string(),
-            "".to_string(),
-            "10000".to_string(),
-        ];
-
+        let input = get_test_input();
         let result = get_result_2(&input);
         let expected = 45000;
 
@@ -116,16 +75,24 @@ mod tests {
     }
 
     #[test]
+    fn test_calculate_sums_correct_answer() {
+        let input = get_test_input();
+        let result = calculate_sums(&input);
+        let expected = vec![6000, 4000, 11000, 24000, 10000];
+
+        assert_eq!(result, expected);
+    }
+
+    #[test]
     fn test_split_and_parse_u32_with_valid_input() {
-        let input = vec![
-            "1".to_string(),
-            "2".to_string(),
-            "".to_string(),
-            "3".to_string(),
-            "".to_string(),
-            "4".to_string(),
+        let input = get_test_input();
+        let expected = vec![
+            vec![1000, 2000, 3000],
+            vec![4000],
+            vec![5000, 6000],
+            vec![7000, 8000, 9000],
+            vec![10000],
         ];
-        let expected = vec![vec![1, 2], vec![3], vec![4]];
         let result = split_and_parse_u32(&input);
         assert_eq!(result, expected);
     }
