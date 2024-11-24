@@ -46,7 +46,7 @@ cargo run -- --day  --year 2022
 Build:
 
 ```sh
-cargo build
+cargo build -r
 cd src/target/release/
 ./aoc-rust --day 1 --year 2022
 ```
