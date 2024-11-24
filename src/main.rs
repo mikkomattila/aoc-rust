@@ -5,10 +5,14 @@ use clap::Parser;
 #[command(version, about, long_about = None)]
 struct Args {
     #[arg(short, long)]
-    day: String,
+    day: u8,
+    #[arg(short, long)]
+    year: Option<u32>,
 }
 
 fn main() {
     let args = Args::parse();
-    print_result_for_day(args.day.as_str());
+    let year = args.year.unwrap_or(2024);
+
+    print_result_for_day(args.day, year);
 }

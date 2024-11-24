@@ -1,9 +1,9 @@
 /**
- * This trait will be used for individual day results.
+ * Individual day results.
  */
 pub trait DayResult {
     /**
-     * This function will print the result for the day.
+     * Print the result for the day.
      */
     fn print_day_result();
 }

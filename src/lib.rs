@@ -1,3 +1,4 @@
 pub mod day_result;
-pub mod days;
 pub mod helpers;
+pub mod year_2022;
+pub mod year_2024;
