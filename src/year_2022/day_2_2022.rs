@@ -17,11 +17,24 @@ impl DayResult for Day2 {
     }
 }
 
+#[derive(Debug, PartialEq, Eq, Hash)]
+enum Rps {
+    Rock,
+    Paper,
+    Scissors,
+}
+
+#[derive(Debug, PartialEq, Eq, Hash)]
+enum RpsResult {
+    Lose,
+    Draw,
+    Win,
+}
+
 fn get_result_1(input: &[String]) -> u32 {
     let mut results: Vec<u32> = Vec::new();
-
     let char_beats = char_beats_map();
-    let equal: HashMap<char, char> = equal();
+    let equal: HashMap<char, char> = equals_map();
 
     for game in input {
         println!("Game: {}", game);
@@ -50,7 +63,7 @@ fn get_result_2(input: &[String]) -> u32 {
     let mut results: Vec<u32> = Vec::new();
 
     let char_beats = char_beats_map();
-    let equal = equal();
+    let equal = equals_map();
     let round_end = round_end_map();
     let p1 = rps_mapping();
 
@@ -63,23 +76,23 @@ fn get_result_2(input: &[String]) -> u32 {
 
         let mut p2_actual = player_2;
 
-        if p1 == Some(&Rps::Rock) && round_end_result == Some(&Result::Win) {
+        if p1 == Some(&Rps::Rock) && round_end_result == Some(&RpsResult::Win) {
             p2_actual = 'Y';
-        } else if p1 == Some(&Rps::Rock) && round_end_result == Some(&Result::Draw) {
+        } else if p1 == Some(&Rps::Rock) && round_end_result == Some(&RpsResult::Draw) {
             p2_actual = 'X';
-        } else if p1 == Some(&Rps::Rock) && round_end_result == Some(&Result::Lose) {
+        } else if p1 == Some(&Rps::Rock) && round_end_result == Some(&RpsResult::Lose) {
             p2_actual = 'Z';
-        } else if p1 == Some(&Rps::Paper) && round_end_result == Some(&Result::Win) {
+        } else if p1 == Some(&Rps::Paper) && round_end_result == Some(&RpsResult::Win) {
             p2_actual = 'Z';
-        } else if p1 == Some(&Rps::Paper) && round_end_result == Some(&Result::Draw) {
+        } else if p1 == Some(&Rps::Paper) && round_end_result == Some(&RpsResult::Draw) {
             p2_actual = 'Y';
-        } else if p1 == Some(&Rps::Paper) && round_end_result == Some(&Result::Lose) {
+        } else if p1 == Some(&Rps::Paper) && round_end_result == Some(&RpsResult::Lose) {
             p2_actual = 'X';
-        } else if p1 == Some(&Rps::Scissors) && round_end_result == Some(&Result::Win) {
+        } else if p1 == Some(&Rps::Scissors) && round_end_result == Some(&RpsResult::Win) {
             p2_actual = 'X';
-        } else if p1 == Some(&Rps::Scissors) && round_end_result == Some(&Result::Draw) {
+        } else if p1 == Some(&Rps::Scissors) && round_end_result == Some(&RpsResult::Draw) {
             p2_actual = 'Z';
-        } else if p1 == Some(&Rps::Scissors) && round_end_result == Some(&Result::Lose) {
+        } else if p1 == Some(&Rps::Scissors) && round_end_result == Some(&RpsResult::Lose) {
             p2_actual = 'Y';
         }
 
@@ -106,53 +119,31 @@ fn parse_game(input: &str) -> (char, char) {
     (chars.next().unwrap(), chars.next().unwrap())
 }
 
-fn equal() -> HashMap<char, char> {
-    let mut map = HashMap::new();
-    map.insert('A', 'X');
-    map.insert('B', 'Y');
-    map.insert('C', 'Z');
-    map
+fn equals_map() -> HashMap<char, char> {
+    HashMap::from([('A', 'X'), ('B', 'Y'), ('C', 'Z')])
 }
 
 fn char_beats_map() -> HashMap<char, char> {
-    let mut map = HashMap::new();
-    map.insert('X', 'C');
-    map.insert('Y', 'A');
-    map.insert('Z', 'B');
-    map
+    HashMap::from([('X', 'C'), ('Y', 'A'), ('Z', 'B')])
 }
 
-#[derive(Debug, PartialEq, Eq, Hash)]
-enum Result {
-    Lose,
-    Draw,
-    Win,
-}
-
-#[derive(Debug, PartialEq, Eq, Hash)]
-enum Rps {
-    Rock,
-    Paper,
-    Scissors,
-}
-
-fn round_end_map() -> HashMap<char, Result> {
-    let mut map = HashMap::new();
-    map.insert('X', Result::Lose);
-    map.insert('Y', Result::Draw);
-    map.insert('Z', Result::Win);
-    map
+fn round_end_map() -> HashMap<char, RpsResult> {
+    HashMap::from([
+        ('X', RpsResult::Lose),
+        ('Y', RpsResult::Draw),
+        ('Z', RpsResult::Win),
+    ])
 }
 
 fn rps_mapping() -> HashMap<char, Rps> {
-    let mut map = HashMap::new();
-    map.insert('A', Rps::Rock);
-    map.insert('B', Rps::Paper);
-    map.insert('C', Rps::Scissors);
-    map.insert('X', Rps::Rock);
-    map.insert('Y', Rps::Paper);
-    map.insert('Z', Rps::Scissors);
-    map
+    HashMap::from([
+        ('A', Rps::Rock),
+        ('B', Rps::Paper),
+        ('C', Rps::Scissors),
+        ('X', Rps::Rock),
+        ('Y', Rps::Paper),
+        ('Z', Rps::Scissors),
+    ])
 }
 
 #[cfg(test)]
