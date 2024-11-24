@@ -1,7 +1,7 @@
 
 # Build the project
 build:
-	cargo build
+	cargo build -r
 
 # Test the project
 test:
