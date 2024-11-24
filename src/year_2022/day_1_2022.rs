@@ -10,11 +10,12 @@ impl DayResult for Day1 {
     fn print_day_result() {
         let input = fetch_input(1, 2022);
 
-        println!("Result 1: {}", get_result_1(input));
+        println!("Result 1: {}", get_result_1(&input));
+        println!("Result 2: {}", get_result_2(&input));
     }
 }
 
-fn get_result_1(input: Vec<String>) -> i32 {
+fn get_result_1(input: &Vec<String>) -> i32 {
     let split_input = split_and_parse_u32(input);
     let mut results: Vec<u32> = Vec::new();
     for array in split_input.iter() {
@@ -28,6 +29,10 @@ fn get_result_1(input: Vec<String>) -> i32 {
         Some(max) => *max as i32,
         None => 0,
     }
+}
+
+fn get_result_2(input: &Vec<String>) -> i32 {
+    0
 }
 
 fn split_and_parse_u32(input: Vec<String>) -> Vec<Vec<u32>> {
@@ -47,7 +52,7 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_get_result_1() {
+    fn test_get_result_1_correct_answer() {
         let input = vec![
             "1000".to_string(),
             "2000".to_string(),
@@ -58,6 +63,23 @@ mod tests {
         ];
 
         let result = get_result_1(input);
+        let expected = 6000;
+
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn test_get_result_2_correct_answer() {
+        let input = vec![
+            "1000".to_string(),
+            "2000".to_string(),
+            "3000".to_string(),
+            "".to_string(),
+            "1000".to_string(),
+            "2000".to_string(),
+        ];
+
+        let result = get_result_2(input);
         let expected = 6000;
 
         assert_eq!(result, expected);
