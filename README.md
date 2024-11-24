@@ -23,3 +23,11 @@ With explicit year:
 ```sh
 cargo run -- --day  --year 2023
 ```
+
+## Solutions
+
+### 2022
+
+| Day | Problem                                                 | Solution                              |
+| --- | ------------------------------------------------------- | ------------------------------------- |
+| 1   | [Calorie Counting](https://adventofcode.com/2022/day/1) | [Source](src/year_2022/day_1_2022.rs) |

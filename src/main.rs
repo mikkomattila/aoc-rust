@@ -13,6 +13,5 @@ struct Args {
 fn main() {
     let args = Args::parse();
     let year = args.year.unwrap_or(2024);
-
     print_result_for_day(args.day, year);
 }
