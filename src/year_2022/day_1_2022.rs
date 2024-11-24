@@ -9,26 +9,36 @@ pub struct Day1;
 impl DayResult for Day1 {
     fn print_day_result() {
         let input = fetch_input(1, 2022);
-        println!("Results for day 1 of 2023");
+
         println!("Result 1: {}", get_result_1(input));
     }
 }
 
 fn get_result_1(input: Vec<String>) -> i32 {
-    let split_input = split_by_empty_string(input);
+    let split_input = split_and_parse_u32(input);
+    let mut results: Vec<u32> = Vec::new();
     for array in split_input.iter() {
+        let mut sum = 0;
         for item in array.iter() {
-            println!("{}", item);
+            sum += item;
         }
+        results.push(sum);
     }
-
-    0
+    match results.iter().max() {
+        Some(max) => *max as i32,
+        None => 0,
+    }
 }
 
-fn split_by_empty_string(input: Vec<String>) -> Vec<Vec<String>> {
+fn split_and_parse_u32(input: Vec<String>) -> Vec<Vec<u32>> {
     input
         .split(|s| s.is_empty())
-        .map(|slice| slice.to_vec())
+        .map(|slice| {
+            slice
+                .iter()
+                .map(|s| s.parse::<u32>().expect("Failed to parse string to u32"))
+                .collect()
+        })
         .collect()
 }
 
@@ -48,24 +58,23 @@ mod tests {
         ];
 
         let result = get_result_1(input);
+        let expected = 6000;
+
+        assert_eq!(result, expected);
     }
 
     #[test]
-    fn test_split_by_empty_string_with_valid_input() {
+    fn test_split_and_parse_u32_with_valid_input() {
         let input = vec![
-            "a".to_string(),
-            "b".to_string(),
+            "1".to_string(),
+            "2".to_string(),
             "".to_string(),
-            "c".to_string(),
+            "3".to_string(),
             "".to_string(),
-            "d".to_string(),
+            "4".to_string(),
         ];
-        let expected = vec![
-            vec!["a".to_string(), "b".to_string()],
-            vec!["c".to_string()],
-            vec!["d".to_string()],
-        ];
-        let result = split_by_empty_string(input);
+        let expected = vec![vec![1, 2], vec![3], vec![4]];
+        let result = split_and_parse_u32(input);
         assert_eq!(result, expected);
     }
 }
