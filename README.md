@@ -2,9 +2,11 @@
 
 ## Overview
 
-This repository contains my solutions to the Advent of Code 2024 challenges, implemented in Rust.
+This repository contains my solutions to the Advent of Code 2024 challenges, implemented in Rust. Advent of code can be found from: [link](https://adventofcode.com/).
 
 ## Usage
+
+Before running the program, copy the `.env.example` file to `.env` and fill in your Advent of Code session token. You can find it by logging to [Advent of Code](https://adventofcode.com/) and copying the value of the session cookie.
 
 Run the program with Cargo. Specify the day of the challenge you want to execute. Optionally, you can also specify the year. If the year is not provided, the program defaults to 2024.
 
