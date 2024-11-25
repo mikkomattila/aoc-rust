@@ -16,7 +16,7 @@ enum Rps {
     Scissors,
 }
 
-#[derive(Debug, PartialEq, Eq, Hash, Clone, Copy)]
+#[derive(Debug, PartialEq, Eq, Hash)]
 enum RpsResult {
     Lose,
     Draw,
