@@ -2,7 +2,7 @@
 
 ## Overview
 
-This repository contains my solutions to Advent of Code challenges, implemented in Rust. Advent of code can be found from: [adventofcode.com](https://adventofcode.com/).
+This repository contains my solutions to Advent of Code challenges, implemented in Rust. Advent of Code can be found from: [adventofcode.com](https://adventofcode.com/).
 
 ## Available solutions
 
@@ -23,7 +23,7 @@ Before running the program, copy the `.env.example` file to project root, rename
 
 ## Usage
 
-Either run or build the program with Cargo. See the examples below.
+Either run or build the program with `Cargo`. Each solution should simply print out an answer to both parts. See the examples below.
 
 ### Examples
 
