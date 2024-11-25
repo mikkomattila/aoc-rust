@@ -2,7 +2,8 @@ use crate::day_result::DayResult;
 use crate::helpers::fetch_input;
 
 /**
- * Day 1 of 2022.
+ * Day 1 of 2022:
+ * Calorie counting
  */
 pub struct Day1;
 

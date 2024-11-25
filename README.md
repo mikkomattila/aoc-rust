@@ -2,7 +2,7 @@
 
 ## Overview
 
-This repository contains my solutions to Advent of Code challenges, implemented in Rust. Advent of code can be found from: [link](https://adventofcode.com/).
+This repository contains my solutions to Advent of Code challenges, implemented in Rust. Advent of code can be found from: [adventofcode.com](https://adventofcode.com/).
 
 ## Available solutions
 
@@ -15,9 +15,9 @@ This repository contains my solutions to Advent of Code challenges, implemented 
 
 ## Prerequisites
 
-Make sure you have Rust and Cargo installed.
+Make sure you have `Rust` and `Cargo` installed, see: [rust-lang.org](https://www.rust-lang.org/tools/install).
 
-Before running the program, copy the `.env.example` file to project root, rename it to `.env` and fill in your Advent of Code session token. You can find it by logging to [Advent of Code](https://adventofcode.com/) and copying the value of the session cookie. Session cookie can be found using your browser's dev tools:
+Before running the program, copy the `.env.example` file to project root, rename it to `.env` and fill in your Advent of Code session token. You can find it by logging in to [adventofcode.com](https://adventofcode.com/) and copying the value of the session cookie. Your unique session cookie can be found using your browser's dev tools:
 
 ![AOC_SESSION_TOKEN](assets/session_token.png)
 
@@ -35,7 +35,7 @@ cargo run -- --day 1 --year 2022
 
 **Build:**
 
-1. Build with release configuration
+1. Build with release configuration:
 
 ```sh
 cargo build --release

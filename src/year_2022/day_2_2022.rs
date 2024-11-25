@@ -5,7 +5,8 @@ use crate::day_result::DayResult;
 use crate::helpers::fetch_input;
 
 /**
- * Day 2 of 2022.
+ * Day 2 of 2022:
+ * Rock Paper Scissors
  */
 pub struct Day2;
 
