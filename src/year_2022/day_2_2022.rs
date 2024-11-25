@@ -32,34 +32,39 @@ impl DayResult for Day2 {
 }
 
 fn get_result_1(input: &[String]) -> u32 {
-    let mut score: Vec<u32> = Vec::new();
-    let games = parse_rps_games(input);
-    for (p1, p2) in games {
-        score.push(get_result_score(p1, p2) + get_rps_score(p2));
-    }
-    score.iter().sum()
+    parse_rps_games(input)
+        .iter()
+        .map(|(player_1, player_2)| {
+            get_result_score(*player_1, *player_2) + get_rps_score(*player_2)
+        })
+        .sum()
 }
 
 fn get_result_2(input: &[String]) -> u32 {
-    let mut score: Vec<u32> = Vec::new();
+    let mut result: Vec<u32> = Vec::new();
     let games = parse_rps_games(input);
 
-    let round_end = get_round_end_map();
-    let rps_wins = get_rps_wins_map();
-    let rps_loses = get_rps_loses_map();
+    let round_end_map = get_round_end_map();
+    let rps_wins_map = get_rps_wins_map();
+    let rps_loses_map = get_rps_loses_map();
 
-    for (p1, p2) in games {
-        let end = round_end.get(&p2).unwrap();
-
+    for (player_1, player_2) in games {
+        let end = round_end_map
+            .get(&player_2)
+            .expect("Player 2 not found in round_end_map");
         let p2_actual = match end {
-            RpsResult::Win => *rps_loses.get(&p1).unwrap(),
-            RpsResult::Draw => p1,
-            RpsResult::Lose => *rps_wins.get(&p1).unwrap(),
+            RpsResult::Win => *rps_loses_map
+                .get(&player_1)
+                .expect("Player 1 not found in rps_loses_map"),
+            RpsResult::Draw => player_1,
+            RpsResult::Lose => *rps_wins_map
+                .get(&player_1)
+                .expect("Player 1 not found in rps_wins_map"),
         };
-        score.push(get_result_score(p1, p2_actual) + get_rps_score(p2_actual));
+        result.push(get_result_score(player_1, p2_actual) + get_rps_score(p2_actual));
     }
 
-    score.iter().sum()
+    result.iter().sum()
 }
 
 fn get_round_end_map() -> HashMap<Rps, RpsResult> {
@@ -94,20 +99,25 @@ fn get_rps_loses_map() -> HashMap<Rps, Rps> {
 }
 
 fn parse_rps_games(input: &[String]) -> Vec<(Rps, Rps)> {
-    let rps_mapping = get_char_rps_map();
-    let mut games = Vec::new();
+    let char_rps_map = get_char_rps_map();
+    let mut result: Vec<(Rps, Rps)> = Vec::new();
 
-    for game in input {
-        let mut chars = game.chars().filter(|c: &char| !c.is_whitespace());
-        let p1_char = chars.next().unwrap();
-        let p2_char = chars.next().unwrap();
+    for row in input {
+        let mut chars = row.chars().filter(|c: &char| !c.is_whitespace());
+        let player_1_char = chars.next().expect("Player 1 char not found");
+        let player_2_char = chars.next().expect("Player 2 char not found");
 
-        let p_1 = *rps_mapping.get(&p1_char).unwrap();
-        let p_2 = *rps_mapping.get(&p2_char).unwrap();
+        let player_1_rps = *char_rps_map
+            .get(&player_1_char)
+            .expect("Player 1 RPS not found");
 
-        games.push((p_1, p_2));
+        let player_2_rps = *char_rps_map
+            .get(&player_2_char)
+            .expect("Player 2 RPS not found");
+
+        result.push((player_1_rps, player_2_rps));
     }
-    games
+    result
 }
 
 fn get_result_score(p1: Rps, p2: Rps) -> u32 {
