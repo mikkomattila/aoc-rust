@@ -2,7 +2,7 @@
 name = "aoc-rust"
 version = "0.1.0"
 edition = "2021"
-authors = ["Mikko Mattila <9086012+mikkomattila@users.noreply.github.com >"]
+authors = ["Mikko Mattila <9086012+mikkomattila@users.noreply.github.com>"]
 description = "Advent of Code solutions in Rust"
 readme = "README.md"
 repository = "https://github.com/mikkomattila/aoc-rust"
