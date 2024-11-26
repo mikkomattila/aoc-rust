@@ -26,8 +26,7 @@ fn get_result_1(input: &[String]) -> u16 {
         let set_2: HashSet<char> = second.chars().collect();
         let matching_chars: HashSet<_> = get_matching_chars(set_1, set_2);
 
-        let sum: u16 = matching_chars.iter().map(|&c| get_priority(c)).sum();
-        total_sum += sum;
+        total_sum += sum_priorities(matching_chars);
     }
 
     total_sum
@@ -42,26 +41,27 @@ fn get_result_2(input: &[String]) -> u16 {
         }
 
         let sets: Vec<HashSet<char>> = chunk.iter().map(|line| line.chars().collect()).collect();
-        let match_first_second = get_matching_chars(sets[0].clone(), sets[1].clone());
-        let match_all: HashSet<_> = get_matching_chars(match_first_second, sets[2].clone());
+        let match_first_two = get_matching_chars(sets[0].clone(), sets[1].clone());
+        let match_all: HashSet<_> = get_matching_chars(match_first_two, sets[2].clone());
 
-        let sum: u16 = match_all.iter().map(|&c| get_priority(c)).sum();
-        total_sum += sum;
+        total_sum += sum_priorities(match_all);
     }
 
     total_sum
 }
 
-fn get_priority(c: char) -> u16 {
-    match c {
-        'a'..='z' => (c as u16) - ('a' as u16) + 1,
-        'A'..='Z' => (c as u16) - ('A' as u16) + 27,
-        _ => 0,
-    }
-}
-
 fn get_matching_chars(set_1: HashSet<char>, set_2: HashSet<char>) -> HashSet<char> {
     set_1.intersection(&set_2).cloned().collect()
+}
+
+fn sum_priorities(set: HashSet<char>) -> u16 {
+    set.iter()
+        .map(|&c| match c {
+            'a'..='z' => (c as u16) - ('a' as u16) + 1,
+            'A'..='Z' => (c as u16) - ('A' as u16) + 27,
+            _ => 0,
+        })
+        .sum()
 }
 
 #[cfg(test)]
