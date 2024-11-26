@@ -1,8 +1,7 @@
-use std::collections::HashMap;
-use std::hash::Hash;
-
 use crate::day_result::DayResult;
 use crate::helpers::fetch_input;
+use std::collections::HashMap;
+use std::hash::Hash;
 
 /**
  * Day 2 of 2022:
