@@ -16,30 +16,52 @@ impl DayResult for Day3 {
     }
 }
 
-fn get_result_1(input: &[String]) -> u32 {
+fn get_result_1(input: &[String]) -> u16 {
     let mut total_sum = 0;
+
     for line in input {
-        let (first_half, second_half) = line.split_at(line.len() / 2);
-        let first_half_set: HashSet<char> = first_half.chars().collect();
-        let second_half_set: HashSet<char> = second_half.chars().collect();
-        let matching_chars: HashSet<_> = first_half_set.intersection(&second_half_set).collect();
-        let sum: u32 = matching_chars.iter().map(|&&c| get_priority(c)).sum();
+        let (first, second) = line.split_at(line.len() / 2);
+
+        let set_1: HashSet<char> = first.chars().collect();
+        let set_2: HashSet<char> = second.chars().collect();
+        let matching_chars: HashSet<_> = get_matching_chars(set_1, set_2);
+
+        let sum: u16 = matching_chars.iter().map(|&c| get_priority(c)).sum();
         total_sum += sum;
     }
 
     total_sum
 }
 
-fn get_result_2(input: &[String]) -> u32 {
-    0
+fn get_result_2(input: &[String]) -> u16 {
+    let mut total_sum = 0;
+
+    for chunk in input.chunks(3) {
+        if chunk.len() != 3 {
+            break;
+        }
+
+        let sets: Vec<HashSet<char>> = chunk.iter().map(|line| line.chars().collect()).collect();
+        let match_first_second = get_matching_chars(sets[0].clone(), sets[1].clone());
+        let match_all: HashSet<_> = get_matching_chars(match_first_second, sets[2].clone());
+
+        let sum: u16 = match_all.iter().map(|&c| get_priority(c)).sum();
+        total_sum += sum;
+    }
+
+    total_sum
 }
 
-fn get_priority(c: char) -> u32 {
+fn get_priority(c: char) -> u16 {
     match c {
-        'a'..='z' => (c as u32) - ('a' as u32) + 1,
-        'A'..='Z' => (c as u32) - ('A' as u32) + 27,
+        'a'..='z' => (c as u16) - ('a' as u16) + 1,
+        'A'..='Z' => (c as u16) - ('A' as u16) + 27,
         _ => 0,
     }
+}
+
+fn get_matching_chars(set_1: HashSet<char>, set_2: HashSet<char>) -> HashSet<char> {
+    set_1.intersection(&set_2).cloned().collect()
 }
 
 #[cfg(test)]
@@ -68,6 +90,6 @@ mod tests {
     #[test]
     fn test_get_result_2() {
         let result = get_result_2(&get_test_input());
-        assert_eq!(result, 0);
+        assert_eq!(result, 70);
     }
 }
