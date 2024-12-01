@@ -36,7 +36,7 @@ fn parse_locations(input: &[String]) -> (Vec<i32>, Vec<i32>) {
         .map(|line| {
             let numbers: Vec<i32> = line
                 .split_whitespace()
-                .map(|s| s.parse::<i32>().expect("Failed to parse string to u32"))
+                .map(|s| s.parse::<i32>().expect("Failed to parse string to i32"))
                 .collect();
             (numbers[0], numbers[1])
         })
