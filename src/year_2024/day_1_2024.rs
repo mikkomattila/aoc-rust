@@ -33,14 +33,9 @@ fn get_result_1(input: &[String]) -> i32 {
 
 fn get_result_2(input: &[String]) -> i32 {
     let (left, right) = parse_locations(input);
-    let mut result = 0;
-
-    left.iter().for_each(|&index| {
-        let i = index as usize;
-        let score = left[i] * right.iter().filter(|&&x| x == left[i]).count() as i32;
-        result += score;
-    });
-    result
+    left.iter()
+        .map(|&value| value * right.iter().filter(|&&x| x == value).count() as i32)
+        .sum()
 }
 
 fn parse_locations(input: &[String]) -> (Vec<i32>, Vec<i32>) {
