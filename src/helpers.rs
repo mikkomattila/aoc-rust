@@ -16,6 +16,7 @@ pub fn print_result_for_day(day_number: u8, year: u32) {
         (2022, 2) => day_2_2022::Day2::print_day_result(),
         (2022, 3) => day_3_2022::Day3::print_day_result(),
         (2024, 1) => day_1_2024::Day1::print_day_result(),
+        (2024, 2) => day_2_2024::Day2::print_day_result(),
         _ => println!("Result for day {} in year {} not found", day_number, year),
     }
 }
