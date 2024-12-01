@@ -1,6 +1,6 @@
 use crate::day_result::DayResult;
-use crate::year_2022::*;
-use crate::year_2024::*;
+use crate::year_2022::{day_1::Day1_2022, day_2::Day2_2022, day_3::Day3_2022};
+use crate::year_2024::{day_1::Day1_2024, day_2::Day2_2024};
 use dotenv::dotenv;
 use reqwest::blocking::Client;
 use std::env;
@@ -11,12 +11,18 @@ use std::env;
  * - `day_number` - The day number for which the result should be printed.
  */
 pub fn print_result_for_day(day_number: u8, year: u32) {
-    match (year, day_number) {
-        (2022, 1) => day_1_2022::Day1::print_day_result(),
-        (2022, 2) => day_2_2022::Day2::print_day_result(),
-        (2022, 3) => day_3_2022::Day3::print_day_result(),
-        (2024, 1) => day_1_2024::Day1::print_day_result(),
-        (2024, 2) => day_2_2024::Day2::print_day_result(),
+    match year {
+        2022 => match day_number {
+            1 => Day1_2022::print_day_result(),
+            2 => Day2_2022::print_day_result(),
+            3 => Day3_2022::print_day_result(),
+            _ => println!("Result for day {} in year {} not found", day_number, year),
+        },
+        2024 => match day_number {
+            1 => Day1_2024::print_day_result(),
+            2 => Day2_2024::print_day_result(),
+            _ => println!("Result for day {} in year {} not found", day_number, year),
+        },
         _ => println!("Result for day {} in year {} not found", day_number, year),
     }
 }

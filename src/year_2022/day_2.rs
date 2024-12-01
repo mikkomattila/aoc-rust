@@ -7,9 +7,9 @@ use std::hash::Hash;
  * Day 2 of 2022:
  * Rock Paper Scissors
  */
-pub struct Day2;
+pub struct Day2_2022;
 
-impl DayResult for Day2 {
+impl DayResult for Day2_2022 {
     fn print_day_result() {
         let input = fetch_input(2, 2022);
         println!("Result 1: {}", get_result_1(&input));

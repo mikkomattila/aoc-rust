@@ -5,9 +5,9 @@ use crate::helpers::fetch_input;
  * Day 1 of 2022:
  * Calorie counting
  */
-pub struct Day1;
+pub struct Day1_2022;
 
-impl DayResult for Day1 {
+impl DayResult for Day1_2022 {
     fn print_day_result() {
         let input = fetch_input(1, 2022);
         println!("Result 1: {}", get_result_1(&input));

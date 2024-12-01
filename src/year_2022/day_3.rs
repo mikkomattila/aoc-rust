@@ -6,9 +6,9 @@ use std::collections::HashSet;
  * Day 3 of 2022:
  * Rucksack Reorganization
  */
-pub struct Day3;
+pub struct Day3_2022;
 
-impl DayResult for Day3 {
+impl DayResult for Day3_2022 {
     fn print_day_result() {
         let input = fetch_input(3, 2022);
         println!("Result 1: {}", get_result_1(&input));

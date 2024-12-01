@@ -5,9 +5,9 @@ use crate::helpers::fetch_input;
  * Day 2 of 2022:
  *
  */
-pub struct Day2;
+pub struct Day2_2024;
 
-impl DayResult for Day2 {
+impl DayResult for Day2_2024 {
     fn print_day_result() {
         let input = fetch_input(2, 2024);
         println!("Result 1: {}", get_result_1(&input));
