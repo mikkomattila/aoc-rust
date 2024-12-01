@@ -35,12 +35,11 @@ fn get_result_2(input: &[String]) -> i32 {
     let (left, right) = parse_locations(input);
     let mut result = 0;
 
-    for i in 0..left.len() {
-        let factor = right.iter().filter(|&&x| x == left[i]).count();
-        let left_actual = left[i] * factor as i32;
-        result += left_actual;
-    }
-
+    left.iter().for_each(|&index| {
+        let i = index as usize;
+        let score = left[i] * right.iter().filter(|&&x| x == left[i]).count() as i32;
+        result += score;
+    });
     result
 }
 
