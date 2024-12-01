@@ -6,6 +6,12 @@ This repository contains my solutions to Advent of Code challenges, implemented 
 
 ## Available solutions
 
+### 2024
+
+| Day | Problem                                                   | Solution                              |
+| --- | --------------------------------------------------------- | ------------------------------------- |
+| 1   | [Historian Hysteria](https://adventofcode.com/2024/day/1) | [Source](src/year_2022/day_1_2024.rs) |
+
 ### 2022
 
 | Day | Problem                                                        | Solution                              |
