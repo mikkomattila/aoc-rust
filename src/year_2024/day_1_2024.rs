@@ -31,18 +31,16 @@ fn get_result_2(input: &[String]) -> i32 {
 }
 
 fn parse_locations(input: &[String]) -> (Vec<i32>, Vec<i32>) {
-    let mut left: Vec<i32> = Vec::new();
-    let mut right: Vec<i32> = Vec::new();
-
-    for line in input {
-        let numbers: Vec<i32> = line
-            .split_whitespace()
-            .map(|s| s.parse::<i32>().expect("Failed to parse string to u32"))
-            .collect();
-
-        left.push(numbers[0]);
-        right.push(numbers[1]);
-    }
+    let (mut left, mut right): (Vec<i32>, Vec<i32>) = input
+        .iter()
+        .map(|line| {
+            let numbers: Vec<i32> = line
+                .split_whitespace()
+                .map(|s| s.parse::<i32>().expect("Failed to parse string to u32"))
+                .collect();
+            (numbers[0], numbers[1])
+        })
+        .unzip();
 
     left.sort_unstable();
     right.sort_unstable();
