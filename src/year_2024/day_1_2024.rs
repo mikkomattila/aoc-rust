@@ -17,18 +17,10 @@ impl DayResult for Day1 {
 
 fn get_result_1(input: &[String]) -> i32 {
     let (left, right) = parse_locations(input);
-    let mut result = 0;
-
-    for i in 0..left.len() {
-        let diff = if left[i] > right[i] {
-            left[i] - right[i]
-        } else {
-            right[i] - left[i]
-        };
-        result += diff;
-    }
-
-    result
+    left.iter()
+        .zip(right.iter())
+        .map(|(l, r)| (l - r).abs())
+        .sum()
 }
 
 fn get_result_2(input: &[String]) -> i32 {
