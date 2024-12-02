@@ -15,52 +15,50 @@ impl DayResult for Day2_2024 {
     }
 }
 
-fn parse_reports(input: &[String]) -> Vec<Vec<u32>> {
+fn parse_reports(input: &[String]) -> Vec<Vec<i32>> {
     input
         .iter()
         .map(|line| {
             line.split_whitespace()
-                .map(|s| s.parse::<u32>().expect("Failed to parse string to u32"))
+                .map(|s| s.parse::<i32>().expect("Failed to parse string to i32"))
                 .collect()
         })
         .collect()
 }
 
-fn is_safe(a: &u32, b: &u32) -> bool {
-    a.abs_diff(*b) >= 1 && a.abs_diff(*b) <= 3
-}
+fn is_safe_1(report: Vec<i32>) -> i32 {
+    let mut is_ascending: bool = false;
+    let mut is_descending = false;
 
-fn get_result_1(input: &[String]) -> u32 {
-    let mut score = 0;
-    let reports = parse_reports(input);
+    for i in 0..report.len() - 1 {
+        let current = report[i];
+        let next = report[i + 1];
+        let diff = (next - current).abs();
 
-    for report in reports {
-        let mut invalid = true;
-        let mut asc = false;
-        let mut desc = false;
-
-        for window in report.windows(2) {
-            if let [current, next] = window {
-                if next > current && is_safe(next, current) {
-                    asc = true;
-                } else if next < current && is_safe(next, current) {
-                    desc = true;
-                } else {
-                    invalid = false;
-                    break;
-                }
-            }
-        }
-
-        if invalid && !(asc && desc) {
-            score += 1;
+        if next > current && (1..=3).contains(&diff) {
+            is_ascending = true;
+        } else if next < current && (1..=3).contains(&diff) {
+            is_descending = true;
+        } else {
+            return 0;
         }
     }
 
-    score
+    if is_ascending != is_descending {
+        1
+    } else {
+        0
+    }
 }
 
-fn get_result_2(input: &[String]) -> u32 {
+fn get_result_1(input: &[String]) -> i32 {
+    parse_reports(input)
+        .iter()
+        .map(|report| is_safe_1(report.to_vec()))
+        .sum()
+}
+
+fn get_result_2(input: &[String]) -> i32 {
     0
 }
 
@@ -90,6 +88,6 @@ mod tests {
     #[test]
     fn test_get_result_2() {
         let result = get_result_2(&get_test_input());
-        assert_eq!(result, 0);
+        assert_eq!(result, 4);
     }
 }
