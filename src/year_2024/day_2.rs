@@ -27,7 +27,7 @@ fn parse_reports(input: &[String]) -> Vec<Vec<i32>> {
 }
 
 fn is_safe_report(report: Vec<i32>) -> i32 {
-    let mut sign = 0;
+    let mut direction = 0;
 
     for i in 0..report.len() - 1 {
         let current = report[i];
@@ -35,10 +35,10 @@ fn is_safe_report(report: Vec<i32>) -> i32 {
         let diff = (next - current).abs();
 
         if (1..=3).contains(&diff) {
-            let new_sign = (next - current).signum();
-            if sign == 0 {
-                sign = new_sign;
-            } else if sign != new_sign {
+            let new_direction = (next - current).signum();
+            if direction == 0 {
+                direction = new_direction;
+            } else if direction != new_direction {
                 return 0;
             }
         } else {
