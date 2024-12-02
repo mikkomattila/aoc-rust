@@ -11,12 +11,26 @@ pub struct Day3_2022;
 impl DayResult for Day3_2022 {
     fn print_day_result() {
         let input = fetch_input(3, 2022);
-        println!("Result 1: {}", get_result_1(&input));
-        println!("Result 2: {}", get_result_2(&input));
+        println!("Result 1: {}", get_result_1(input.clone()));
+        println!("Result 2: {}", get_result_2(input));
     }
 }
 
-fn get_result_1(input: &[String]) -> u16 {
+fn get_matching_chars(set_1: HashSet<char>, set_2: HashSet<char>) -> HashSet<char> {
+    set_1.intersection(&set_2).cloned().collect()
+}
+
+fn sum_priorities(set: HashSet<char>) -> u16 {
+    set.iter()
+        .map(|&c| match c {
+            'a'..='z' => (c as u16) - ('a' as u16) + 1,
+            'A'..='Z' => (c as u16) - ('A' as u16) + 27,
+            _ => 0,
+        })
+        .sum()
+}
+
+fn get_result_1(input: Vec<String>) -> u16 {
     let mut total_sum = 0;
 
     for line in input {
@@ -32,7 +46,7 @@ fn get_result_1(input: &[String]) -> u16 {
     total_sum
 }
 
-fn get_result_2(input: &[String]) -> u16 {
+fn get_result_2(input: Vec<String>) -> u16 {
     let mut total_sum = 0;
 
     for chunk in input.chunks(3) {
@@ -48,20 +62,6 @@ fn get_result_2(input: &[String]) -> u16 {
     }
 
     total_sum
-}
-
-fn get_matching_chars(set_1: HashSet<char>, set_2: HashSet<char>) -> HashSet<char> {
-    set_1.intersection(&set_2).cloned().collect()
-}
-
-fn sum_priorities(set: HashSet<char>) -> u16 {
-    set.iter()
-        .map(|&c| match c {
-            'a'..='z' => (c as u16) - ('a' as u16) + 1,
-            'A'..='Z' => (c as u16) - ('A' as u16) + 27,
-            _ => 0,
-        })
-        .sum()
 }
 
 #[cfg(test)]
@@ -83,13 +83,13 @@ mod tests {
 
     #[test]
     fn test_get_result_1() {
-        let result = get_result_1(&get_test_input());
+        let result = get_result_1(get_test_input());
         assert_eq!(result, 157);
     }
 
     #[test]
     fn test_get_result_2() {
-        let result = get_result_2(&get_test_input());
+        let result = get_result_2(get_test_input());
         assert_eq!(result, 70);
     }
 }

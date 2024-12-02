@@ -12,8 +12,8 @@ pub struct Day2_2022;
 impl DayResult for Day2_2022 {
     fn print_day_result() {
         let input = fetch_input(2, 2022);
-        println!("Result 1: {}", get_result_1(&input));
-        println!("Result 2: {}", get_result_2(&input));
+        println!("Result 1: {}", get_result_1(input.clone()));
+        println!("Result 2: {}", get_result_2(input));
     }
 }
 
@@ -31,7 +31,7 @@ enum RpsResult {
     Win,
 }
 
-fn get_result_1(input: &[String]) -> u32 {
+fn get_result_1(input: Vec<String>) -> u32 {
     parse_rps_games(input)
         .iter()
         .map(|(player_1, player_2)| {
@@ -40,7 +40,7 @@ fn get_result_1(input: &[String]) -> u32 {
         .sum()
 }
 
-fn get_result_2(input: &[String]) -> u32 {
+fn get_result_2(input: Vec<String>) -> u32 {
     let round_end_map = get_round_end_map();
     let rps_wins_map = get_rps_wins_map();
     let rps_loses_map = get_rps_loses_map();
@@ -98,7 +98,7 @@ fn get_rps_loses_map() -> HashMap<Rps, Rps> {
     get_rps_wins_map().iter().map(|(k, v)| (*v, *k)).collect()
 }
 
-fn parse_rps_games(input: &[String]) -> Vec<(Rps, Rps)> {
+fn parse_rps_games(input: Vec<String>) -> Vec<(Rps, Rps)> {
     let char_rps_map = get_char_rps_map();
     let mut result: Vec<(Rps, Rps)> = Vec::new();
 
@@ -148,13 +148,13 @@ mod tests {
 
     #[test]
     fn test_get_result_1() {
-        let result = get_result_1(&get_test_input());
+        let result = get_result_1(get_test_input());
         assert_eq!(result, 15);
     }
 
     #[test]
     fn test_get_result_2() {
-        let result = get_result_2(&get_test_input());
+        let result = get_result_2(get_test_input());
         assert_eq!(result, 12);
     }
 }

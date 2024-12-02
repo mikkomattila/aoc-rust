@@ -10,22 +10,12 @@ pub struct Day1_2022;
 impl DayResult for Day1_2022 {
     fn print_day_result() {
         let input = fetch_input(1, 2022);
-        println!("Result 1: {}", get_result_1(&input));
-        println!("Result 2: {}", get_result_2(&input));
+        println!("Result 1: {}", get_result_1(input.clone()));
+        println!("Result 2: {}", get_result_2(input));
     }
 }
 
-fn get_result_1(input: &[String]) -> u32 {
-    calculate_sums(input).into_iter().max().unwrap_or(0) as u32
-}
-
-fn get_result_2(input: &[String]) -> u32 {
-    let mut results = calculate_sums(input);
-    results.sort_unstable_by(|a, b| b.cmp(a));
-    results.iter().take(3).sum()
-}
-
-fn calculate_sums(input: &[String]) -> Vec<u32> {
+fn calculate_sums(input: Vec<String>) -> Vec<u32> {
     input
         .split(|s| s.is_empty())
         .map(|slice| {
@@ -38,6 +28,16 @@ fn calculate_sums(input: &[String]) -> Vec<u32> {
         .into_iter()
         .map(|array| array.iter().sum())
         .collect()
+}
+
+fn get_result_1(input: Vec<String>) -> u32 {
+    calculate_sums(input).into_iter().max().unwrap_or(0) as u32
+}
+
+fn get_result_2(input: Vec<String>) -> u32 {
+    let mut results = calculate_sums(input);
+    results.sort_unstable_by(|a, b| b.cmp(a));
+    results.iter().take(3).sum()
 }
 
 #[cfg(test)]
@@ -55,19 +55,19 @@ mod tests {
 
     #[test]
     fn test_get_result_1() {
-        let result = get_result_1(&get_test_input());
+        let result = get_result_1(get_test_input());
         assert_eq!(result, 24000);
     }
 
     #[test]
     fn test_get_result_2() {
-        let result = get_result_2(&get_test_input());
+        let result = get_result_2(get_test_input());
         assert_eq!(result, 45000);
     }
 
     #[test]
     fn test_calculate_sums() {
-        let result = calculate_sums(&get_test_input());
+        let result = calculate_sums(get_test_input());
         let expected = vec![6000, 4000, 11000, 24000, 10000];
         assert_eq!(result, expected);
     }

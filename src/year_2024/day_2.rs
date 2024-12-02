@@ -10,12 +10,12 @@ pub struct Day2_2024;
 impl DayResult for Day2_2024 {
     fn print_day_result() {
         let input = fetch_input(2, 2024);
-        println!("Result 1: {}", get_result_1(&input));
-        println!("Result 2: {}", get_result_2(&input));
+        println!("Result 1: {}", get_result_1(input.clone()));
+        println!("Result 2: {}", get_result_2(input));
     }
 }
 
-fn parse_reports(input: &[String]) -> Vec<Vec<i32>> {
+fn parse_reports(input: Vec<String>) -> Vec<Vec<i32>> {
     input
         .iter()
         .map(|line| {
@@ -67,14 +67,14 @@ fn is_safe_with_removal(report: Vec<i32>) -> i32 {
     0
 }
 
-fn get_result_1(input: &[String]) -> i32 {
+fn get_result_1(input: Vec<String>) -> i32 {
     parse_reports(input)
         .iter()
         .map(|report| is_safe_report(report.to_vec()))
         .sum()
 }
 
-fn get_result_2(input: &[String]) -> i32 {
+fn get_result_2(input: Vec<String>) -> i32 {
     parse_reports(input)
         .iter()
         .map(|report| is_safe_with_removal(report.to_vec()))
@@ -100,13 +100,13 @@ mod tests {
 
     #[test]
     fn test_get_result_1() {
-        let result = get_result_1(&get_test_input());
+        let result = get_result_1(get_test_input());
         assert_eq!(result, 2);
     }
 
     #[test]
     fn test_get_result_2() {
-        let result = get_result_2(&get_test_input());
+        let result = get_result_2(get_test_input());
         assert_eq!(result, 4);
     }
 }

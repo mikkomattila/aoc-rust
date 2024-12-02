@@ -10,27 +10,12 @@ pub struct Day1_2024;
 impl DayResult for Day1_2024 {
     fn print_day_result() {
         let input = fetch_input(1, 2024);
-        println!("Result 1: {}", get_result_1(&input));
-        println!("Result 2: {}", get_result_2(&input));
+        println!("Result 1: {}", get_result_1(input.clone()));
+        println!("Result 2: {}", get_result_2(input));
     }
 }
 
-fn get_result_1(input: &[String]) -> i32 {
-    let (left, right) = parse_locations(input);
-    left.iter()
-        .zip(right.iter())
-        .map(|(l, r)| (l - r).abs())
-        .sum()
-}
-
-fn get_result_2(input: &[String]) -> i32 {
-    let (left, right) = parse_locations(input);
-    left.iter()
-        .map(|&value| value * right.iter().filter(|&&x| x == value).count() as i32)
-        .sum()
-}
-
-fn parse_locations(input: &[String]) -> (Vec<i32>, Vec<i32>) {
+fn parse_locations(input: Vec<String>) -> (Vec<i32>, Vec<i32>) {
     let (mut left, mut right): (Vec<i32>, Vec<i32>) = input
         .iter()
         .map(|line| {
@@ -42,10 +27,25 @@ fn parse_locations(input: &[String]) -> (Vec<i32>, Vec<i32>) {
         })
         .unzip();
 
-    left.sort_unstable();
-    right.sort_unstable();
+    left.sort();
+    right.sort();
 
     (left, right)
+}
+
+fn get_result_1(input: Vec<String>) -> i32 {
+    let (left, right) = parse_locations(input);
+    left.iter()
+        .zip(right.iter())
+        .map(|(l, r)| (l - r).abs())
+        .sum()
+}
+
+fn get_result_2(input: Vec<String>) -> i32 {
+    let (left, right) = parse_locations(input);
+    left.iter()
+        .map(|&value| value * right.iter().filter(|&&x| x == value).count() as i32)
+        .sum()
 }
 
 #[cfg(test)]
@@ -60,13 +60,13 @@ mod tests {
 
     #[test]
     fn test_get_result_1() {
-        let result = get_result_1(&get_test_input());
+        let result = get_result_1(get_test_input());
         assert_eq!(result, 11);
     }
 
     #[test]
     fn test_get_result_2() {
-        let result = get_result_2(&get_test_input());
+        let result = get_result_2(get_test_input());
         assert_eq!(result, 31);
     }
 }
