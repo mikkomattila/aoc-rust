@@ -26,40 +26,59 @@ fn parse_reports(input: &[String]) -> Vec<Vec<i32>> {
         .collect()
 }
 
-fn is_safe_1(report: Vec<i32>) -> i32 {
-    let mut is_ascending: bool = false;
-    let mut is_descending = false;
+fn is_safe_report(report: Vec<i32>) -> i32 {
+    let mut sign = 0;
 
     for i in 0..report.len() - 1 {
         let current = report[i];
         let next = report[i + 1];
         let diff = (next - current).abs();
 
-        if next > current && (1..=3).contains(&diff) {
-            is_ascending = true;
-        } else if next < current && (1..=3).contains(&diff) {
-            is_descending = true;
+        if (1..=3).contains(&diff) {
+            let new_sign = (next - current).signum();
+            if sign == 0 {
+                sign = new_sign;
+            } else if sign != new_sign {
+                return 0;
+            }
         } else {
             return 0;
         }
     }
 
-    if is_ascending != is_descending {
-        1
-    } else {
-        0
+    1
+}
+
+fn is_safe_with_removal(report: Vec<i32>) -> i32 {
+    let safe_1 = is_safe_report(report.to_vec());
+    if safe_1 == 1 {
+        return 1;
     }
+
+    for i in 0..report.len() {
+        let mut modified_report = report.to_vec();
+        modified_report.remove(i);
+
+        if is_safe_report(modified_report) == 1 {
+            return 1;
+        }
+    }
+
+    0
 }
 
 fn get_result_1(input: &[String]) -> i32 {
     parse_reports(input)
         .iter()
-        .map(|report| is_safe_1(report.to_vec()))
+        .map(|report| is_safe_report(report.to_vec()))
         .sum()
 }
 
 fn get_result_2(input: &[String]) -> i32 {
-    0
+    parse_reports(input)
+        .iter()
+        .map(|report| is_safe_with_removal(report.to_vec()))
+        .sum()
 }
 
 #[cfg(test)]
