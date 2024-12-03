@@ -49,9 +49,9 @@ cargo run -- --day 1 --year 2024
 1. Build with release configuration:
 
 ```sh
-cargo build --release
-# or
 make build
+# or
+cargo build --release
 ```
 
 2. Produced binary can be found from `src/target/release` and ran with the following command from project root:
