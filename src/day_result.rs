@@ -1,5 +1,5 @@
 /**
- * Individual day results.
+ * Results for individual day.
  */
 pub trait DayResult {
     /**

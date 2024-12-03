@@ -1,14 +1,14 @@
 use crate::day_result::DayResult;
 use crate::year_2022::{day_1::Day1_2022, day_2::Day2_2022, day_3::Day3_2022};
-use crate::year_2024::{day_1::Day1_2024, day_2::Day2_2024, day_3::Day3_2024};
+use crate::year_2024::{day_1::Day1_2024, day_2::Day2_2024, day_3::Day3_2024, day_4::Day4_2024};
 use dotenv::dotenv;
 use reqwest::blocking::Client;
 use std::env;
 
 /**
  * Print the result for the day number passed as argument.
- * # Arguments
- * - `day_number` - The day number for which the result should be printed.
+ * ## Arguments
+ * `day_number` - The day number for which the result should be printed.
  */
 pub fn print_result_for_day(day_number: u8, year: u32) {
     match year {
@@ -22,6 +22,7 @@ pub fn print_result_for_day(day_number: u8, year: u32) {
             1 => Day1_2024::print_day_result(),
             2 => Day2_2024::print_day_result(),
             3 => Day3_2024::print_day_result(),
+            4 => Day4_2024::print_day_result(),
             _ => println!("Result for day {} in year {} not found", day_number, year),
         },
         _ => println!("Result for day {} in year {} not found", day_number, year),
@@ -30,9 +31,11 @@ pub fn print_result_for_day(day_number: u8, year: u32) {
 
 /**
  * Read input for the specified day and year.
- * # Arguments
- * - `day` - The day number for which the input should be fetched.
- * - `year` - The year for which the input should be fetched.
+ * ## Arguments
+ * `day` - The day number for which the input should be fetched.
+ * `year` - The year for which the input should be fetched.
+ * ## Returns
+ * A vector of strings where each string is a line from the input.
  */
 pub fn fetch_input(day: u32, year: u32) -> Vec<String> {
     dotenv().ok();

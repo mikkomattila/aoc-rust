@@ -13,6 +13,7 @@ This repository contains my solutions to Advent of Code challenges, implemented 
 | 1   | [Historian Hysteria](https://adventofcode.com/2024/day/1) | [Source](src/year_2024/day_1.rs) | ⭐⭐  |
 | 2   | [Red-Nosed Reports](https://adventofcode.com/2024/day/2)  | [Source](src/year_2024/day_2.rs) | ⭐⭐  |
 | 3   | [Mull It Over](https://adventofcode.com/2024/day/3)       | [Source](src/year_2024/day_3.rs) | ⭐⭐  |
+| 4   | [TODO](https://adventofcode.com/2024/day/4)               | [Source](src/year_2024/day_4.rs) |       |
 
 ### 2022
 
@@ -38,7 +39,7 @@ Either run or build the program with `Cargo`. Each solution should simply print 
 
 **Run:**
 
--   Run and get an answer for specified date. Year defaults to 2024 and it is optional.
+-   Run and get an answer for specified date. Year defaults to 2024 and is optional.
 
 ```sh
 make get d=1 y=2024
