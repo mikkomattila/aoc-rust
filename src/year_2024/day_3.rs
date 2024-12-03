@@ -12,8 +12,7 @@ pub struct Day3_2024;
 impl DayResult for Day3_2024 {
     fn print_day_result() {
         let input = fetch_input(3, 2024).join("\n");
-        println!("Result 1: {}", get_result_1(input.clone()));
-        println!("Result 2: {}", get_result_2(input));
+        println!("Result 1: {}", get_multiplication_result(input));
     }
 }
 
@@ -29,15 +28,6 @@ fn get_multiplication_result(input: String) -> i32 {
         .sum()
 }
 
-fn get_result_1(input: String) -> i32 {
-    get_multiplication_result(input)
-}
-
-#[allow(unused)]
-fn get_result_2(input: String) -> i32 {
-    0
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -46,14 +36,8 @@ mod tests {
         "xmul(2,4)%&mul[3,7]!@^do_not_mul(5,5)+mul(32,64]then(mul(11,8)mul(8,5))";
 
     #[test]
-    fn test_get_result_1() {
-        let result = get_result_1(TEST_INPUT.to_string());
+    fn test_get_multiplication_result() {
+        let result = get_multiplication_result(TEST_INPUT.to_string());
         assert_eq!(result, 161);
-    }
-
-    #[test]
-    fn test_get_result_2() {
-        let result = get_result_2(TEST_INPUT.to_string());
-        assert_eq!(result, 0);
     }
 }
