@@ -7,7 +7,7 @@ get:
 
 # Test specified day and year
 test:
-	cargo test --lib year_$(y)::day_$(d)
+	cargo test --lib year_$(y)::day_$(d) -- --nocapture
 
 # Build the project
 build:
