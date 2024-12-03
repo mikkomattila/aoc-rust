@@ -12,10 +12,6 @@ pub struct Day3_2024;
 impl DayResult for Day3_2024 {
     fn print_day_result() {
         let input = fetch_input(3, 2024).join("\n");
-
-        // let input =
-        //     "xmul(2,4)%&mul[3,7]!@^do_not_mul(5,5)+mul(32,64]then(mul(11,8)mul(8,5))".to_string();
-
         println!("Result 1: {}", get_result_1(input.clone()));
         println!("Result 2: {}", get_result_2(input));
     }
