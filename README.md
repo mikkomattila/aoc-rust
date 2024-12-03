@@ -38,6 +38,8 @@ Either run or build the program with `Cargo`. Each solution should simply print 
 
 **Run:**
 
+-   Run and get an answer for specified date. Year defaults to 2024 and it is optional.
+
 ```sh
 make get d=1 y=2024
 # or
