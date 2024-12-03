@@ -49,9 +49,9 @@ fn is_safe_report(report: Vec<i32>) -> i32 {
     1
 }
 
-fn is_safe_with_removal(report: Vec<i32>) -> i32 {
-    let safe_1 = is_safe_report(report.to_vec());
-    if safe_1 == 1 {
+fn is_safe_report_with_removal(report: Vec<i32>) -> i32 {
+    let is_safe = is_safe_report(report.to_vec());
+    if is_safe == 1 {
         return 1;
     }
 
@@ -77,7 +77,7 @@ fn get_result_1(input: Vec<String>) -> i32 {
 fn get_result_2(input: Vec<String>) -> i32 {
     parse_reports(input)
         .iter()
-        .map(|report| is_safe_with_removal(report.to_vec()))
+        .map(|report| is_safe_report_with_removal(report.to_vec()))
         .sum()
 }
 
