@@ -8,19 +8,19 @@ This repository contains my solutions to Advent of Code challenges, implemented 
 
 ### 2024
 
-| Day | Problem                                                   | Solution                         |
-| --- | --------------------------------------------------------- | -------------------------------- |
-| 1   | [Historian Hysteria](https://adventofcode.com/2024/day/1) | [Source](src/year_2024/day_1.rs) |
-| 2   | [Red-Nosed Reports](https://adventofcode.com/2024/day/2)  | [Source](src/year_2024/day_2.rs) |
-| 3   | [Mull It Over](https://adventofcode.com/2024/day/3)       | [Source](src/year_2024/day_3.rs) |
+| Day | Problem                                                   | Solution                         | Stars |
+| --- | --------------------------------------------------------- | -------------------------------- | ----- |
+| 1   | [Historian Hysteria](https://adventofcode.com/2024/day/1) | [Source](src/year_2024/day_1.rs) | ⭐⭐  |
+| 2   | [Red-Nosed Reports](https://adventofcode.com/2024/day/2)  | [Source](src/year_2024/day_2.rs) | ⭐⭐  |
+| 3   | [Mull It Over](https://adventofcode.com/2024/day/3)       | [Source](src/year_2024/day_3.rs) | ⭐    |
 
 ### 2022
 
-| Day | Problem                                                        | Solution                         |
-| --- | -------------------------------------------------------------- | -------------------------------- |
-| 1   | [Calorie Counting](https://adventofcode.com/2022/day/1)        | [Source](src/year_2022/day_1.rs) |
-| 2   | [Rock Paper Scissors](https://adventofcode.com/2022/day/2)     | [Source](src/year_2022/day_2.rs) |
-| 3   | [Rucksack Reorganization](https://adventofcode.com/2022/day/3) | [Source](src/year_2022/day_3.rs) |
+| Day | Problem                                                        | Solution                         | Stars |
+| --- | -------------------------------------------------------------- | -------------------------------- | ----- |
+| 1   | [Calorie Counting](https://adventofcode.com/2022/day/1)        | [Source](src/year_2022/day_1.rs) | ⭐⭐  |
+| 2   | [Rock Paper Scissors](https://adventofcode.com/2022/day/2)     | [Source](src/year_2022/day_2.rs) | ⭐⭐  |
+| 3   | [Rucksack Reorganization](https://adventofcode.com/2022/day/3) | [Source](src/year_2022/day_3.rs) | ⭐⭐  |
 
 ## Prerequisites
 
