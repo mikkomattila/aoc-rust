@@ -34,19 +34,19 @@ fn get_result_2(input: String) -> i32 {
     Regex::new(r"mul\((\d+),(\d+)\)|(do\(\))|(don't\(\))")
         .expect("Failed to create regex")
         .captures_iter(&input)
-        .map(|captures| {
-            if captures.get(4).is_some() {
-                enabled = false;
-                0
-            } else if captures.get(3).is_some() {
+        .filter_map(|captures| {
+            if captures.get(3).is_some() {
                 enabled = true;
-                0
-            } else if enabled {
+                None
+            } else if captures.get(4).is_some() {
+                enabled = false;
+                None
+            } else if enabled && captures.get(1).is_some() && captures.get(2).is_some() {
                 let a: i32 = captures[1].parse().expect("Failed to parse string to i32");
                 let b: i32 = captures[2].parse().expect("Failed to parse string to i32");
-                a * b
+                Some(a * b)
             } else {
-                0
+                None
             }
         })
         .sum()
