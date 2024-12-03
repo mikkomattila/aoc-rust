@@ -39,7 +39,9 @@ Either run or build the program with `Cargo`. Each solution should simply print 
 **Run:**
 
 ```sh
-cargo run -- --day 1 --year 2022
+make get d=1 y=2024
+# or
+cargo run -- --day 1 --year 2024
 ```
 
 **Build:**
@@ -48,10 +50,14 @@ cargo run -- --day 1 --year 2022
 
 ```sh
 cargo build --release
+# or
+make build
 ```
 
-2. Produced binary can be found from `src/target/release` and ran with the following command:
+2. Produced binary can be found from `src/target/release` and ran with the following command from project root:
 
 ```sh
-./aoc-rust --day 1 --year 2022
+make run d=1 y=2024
+# or
+./target/release/aoc-rust --day 3 --year 2024
 ```
