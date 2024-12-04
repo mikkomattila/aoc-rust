@@ -6,7 +6,7 @@ use reqwest::blocking::Client;
 use std::env;
 
 /**
- * Print the result for the day number passed as argument.
+ * Print result(s) for a specified day and year.
  * ## Arguments
  * `day_number` - The day number for which the result should be printed.
  */
@@ -30,7 +30,7 @@ pub fn print_result_for_day(day_number: u8, year: u32) {
 }
 
 /**
- * Read input for the specified day and year.
+ * Read input for a specified day and year.
  * ## Arguments
  * `day` - The day number for which the input should be fetched.
  * `year` - The year for which the input should be fetched.

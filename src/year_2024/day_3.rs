@@ -21,7 +21,7 @@ fn get_result_1(input: String) -> i32 {
     Regex::new(r"mul\((\d+),(\d+)\)")
         .expect("Failed to create regex")
         .captures_iter(&input)
-        .map(|captures: regex::Captures<'_>| {
+        .map(|captures| {
             let a: i32 = captures[1].parse().expect("Failed to parse string to i32");
             let b: i32 = captures[2].parse().expect("Failed to parse string to i32");
             a * b

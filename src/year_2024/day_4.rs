@@ -5,7 +5,7 @@ use crate::helpers::fetch_input;
 
 /**
  * Day 4 of 2024:
- *
+ * Ceres Search
  */
 pub struct Day4_2024;
 
@@ -31,7 +31,16 @@ fn get_result_2(input: Vec<String>) -> u32 {
 mod tests {
     use super::*;
 
-    static TEST_INPUT: &[&str] = &[];
+    static TEST_INPUT: &[&str] = &["MMMSXXMASM
+        MSAMXMSMSA
+        AMXSXMAAMM
+        MSAMASMSMX
+        XMASAMXAMM
+        XXAMMXXAMA
+        SMSMSASXSS
+        SAXAMASAAA
+        MAMMMXMMMM
+        MXMXAXMASX"];
 
     fn get_test_input() -> Vec<String> {
         TEST_INPUT.iter().map(|&s| s.to_string()).collect()

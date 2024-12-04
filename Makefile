@@ -2,7 +2,7 @@ d ?= 1
 y ?= 2024
 
 # Solution for specified day and year
-get:
+run:
 	cargo run -- --day $(d) --year $(y)
 
 # Test specified day and year
@@ -14,5 +14,5 @@ build:
 	cargo build -r
 
 # Run the project
-run:
+run-release:
 	./target/release/aoc-rust --day $(d) --year $(y)
