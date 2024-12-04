@@ -25,16 +25,6 @@ fn parse_grid(input: Vec<String>) -> Vec<Vec<char>> {
 
 fn get_result_1(input: Vec<String>) -> i32 {
     let grid = parse_grid(input);
-    let directions: Vec<(i32, i32)> = vec![
-        (0, 1),   // right
-        (0, -1),  // left
-        (-1, 0),  // up
-        (1, 0),   // down
-        (1, 1),   // diagonal down
-        (-1, -1), // diagonal up left
-        (1, -1),  // diagonal down left
-        (-1, 1),  // diagonal down right
-    ];
 
     let word = "XMAS";
     let row_count = grid.len();
@@ -57,6 +47,16 @@ fn get_result_1(input: Vec<String>) -> i32 {
     };
 
     let mut count = 0;
+    let directions = [
+        (0, 1),   // right
+        (0, -1),  // left
+        (-1, 0),  // up
+        (1, 0),   // down
+        (1, 1),   // diagonal down
+        (-1, -1), // diagonal up left
+        (1, -1),  // diagonal down left
+        (-1, 1),  // diagonal down right
+    ];
 
     for row in 0..row_count {
         for col in 0..col_count {
