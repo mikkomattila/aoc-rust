@@ -10,12 +10,10 @@ pub struct Day4_2024;
 impl DayResult for Day4_2024 {
     fn print_day_result() {
         let input = fetch_input(4, 2024);
-        println!("Result 1: {}", get_result_1(input.clone()));
-        println!("Result 2: {}", get_result_2(input));
+        println!("Result 1: {}", get_result_1(input));
+        // println!("Result 2: {}", get_result_2(input.clone()));
     }
 }
-
-static WORD: &str = "XMAS";
 
 fn parse_grid(input: Vec<String>) -> Vec<Vec<char>> {
     input
@@ -27,7 +25,6 @@ fn parse_grid(input: Vec<String>) -> Vec<Vec<char>> {
 
 fn get_result_1(input: Vec<String>) -> i32 {
     let grid = parse_grid(input);
-
     let directions: Vec<(i32, i32)> = vec![
         (0, 1),   // right
         (0, -1),  // left
@@ -39,24 +36,19 @@ fn get_result_1(input: Vec<String>) -> i32 {
         (-1, 1),  // diagonal down right
     ];
 
+    let word = "XMAS";
     let row_count = grid.len();
     let col_count = grid[0].len();
-    let mut count = 0;
 
     let search_grid = |row: usize, col: usize, row_delta: &i32, col_delta: &i32| -> bool {
-        for i in 0..WORD.len() {
-            let new_row = row as i32 + i as i32 * row_delta;
-            let new_col = col as i32 + i as i32 * col_delta;
+        for (idx, current_char) in word.chars().enumerate() {
+            let new_row = row as i32 + idx as i32 * row_delta;
+            let new_col = col as i32 + idx as i32 * col_delta;
 
-            if new_row < 0
-                || new_row >= row_count as i32
-                || new_col < 0
-                || new_col >= col_count as i32
+            if !(0..row_count as i32).contains(&new_row)
+                || !(0..col_count as i32).contains(&new_col)
+                || grid[new_row as usize][new_col as usize] != current_char
             {
-                return false;
-            }
-
-            if grid[new_row as usize][new_col as usize] != WORD.chars().nth(i).unwrap() {
                 return false;
             }
         }
@@ -64,13 +56,14 @@ fn get_result_1(input: Vec<String>) -> i32 {
         true
     };
 
+    let mut count = 0;
+
     for row in 0..row_count {
         for col in 0..col_count {
-            for (row_delta, col_delta) in &directions {
-                if search_grid(row, col, row_delta, col_delta) {
-                    count += 1;
-                }
-            }
+            count += directions
+                .iter()
+                .filter(|&&(row_delta, col_delta)| search_grid(row, col, &row_delta, &col_delta))
+                .count() as i32;
         }
     }
 
@@ -119,7 +112,7 @@ mod tests {
         assert_eq!(result, 18);
     }
 
-    #[ignore = "TODO"]
+    #[ignore]
     #[test]
     fn test_get_result_2() {
         let result = get_result_2(get_test_input(TEST_INPUT_2));
