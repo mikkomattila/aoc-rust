@@ -11,14 +11,12 @@ impl DayResult for Day4_2024 {
     fn print_day_result() {
         let input = fetch_input(4, 2024);
         println!("Result 1: {}", get_result_1(input));
-        // println!("Result 2: {}", get_result_2(input.clone()));
     }
 }
 
 fn parse_grid(input: Vec<String>) -> Vec<Vec<char>> {
     input
         .iter()
-        .flat_map(|line| line.split('\n'))
         .map(|line| line.trim().chars().collect::<Vec<char>>())
         .collect()
 }
@@ -31,9 +29,9 @@ fn get_result_1(input: Vec<String>) -> i32 {
     let col_count = grid[0].len();
 
     let search_grid = |row: usize, col: usize, row_delta: &i32, col_delta: &i32| -> bool {
-        for (idx, current_char) in word.chars().enumerate() {
-            let new_row = row as i32 + idx as i32 * row_delta;
-            let new_col = col as i32 + idx as i32 * col_delta;
+        for (id, current_char) in word.chars().enumerate() {
+            let new_row = row as i32 + id as i32 * row_delta;
+            let new_col = col as i32 + id as i32 * col_delta;
 
             if !(0..row_count as i32).contains(&new_row)
                 || !(0..col_count as i32).contains(&new_col)
