@@ -29,9 +29,9 @@ fn get_result_1(input: Vec<String>) -> i32 {
     let col_count = grid[0].len();
 
     let search_grid = |row: usize, col: usize, row_delta: &i32, col_delta: &i32| -> bool {
-        for (id, current_char) in word.chars().enumerate() {
-            let new_row = row as i32 + id as i32 * row_delta;
-            let new_col = col as i32 + id as i32 * col_delta;
+        for (i, current_char) in word.chars().enumerate() {
+            let new_row = row as i32 + i as i32 * row_delta;
+            let new_col = col as i32 + i as i32 * col_delta;
 
             if !(0..row_count as i32).contains(&new_row)
                 || !(0..col_count as i32).contains(&new_col)
