@@ -17,6 +17,7 @@ impl DayResult for Day4_2024 {
 fn parse_grid(input: Vec<String>) -> Vec<Vec<char>> {
     input
         .iter()
+        .flat_map(|line| line.split('\n'))
         .map(|line| line.trim().chars().collect::<Vec<char>>())
         .collect()
 }
