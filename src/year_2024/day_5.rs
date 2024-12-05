@@ -1,6 +1,4 @@
 use crate::day_result::DayResult;
-
-#[allow(unused)]
 use crate::helpers::fetch_input;
 
 /**
