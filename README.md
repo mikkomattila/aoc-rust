@@ -14,7 +14,7 @@ This repository contains my solutions to Advent of Code challenges, implemented 
 | 2   | [Red-Nosed Reports](https://adventofcode.com/2024/day/2)  | [Source](src/year_2024/day_2.rs) | ⭐⭐  |
 | 3   | [Mull It Over](https://adventofcode.com/2024/day/3)       | [Source](src/year_2024/day_3.rs) | ⭐⭐  |
 | 4   | [Ceres Search](https://adventofcode.com/2024/day/4)       | [Source](src/year_2024/day_4.rs) | ⭐    |
-| 5   | [Print Queue](https://adventofcode.com/2024/day/5)        | [Source](src/year_2024/day_5.rs) | ⭐    |
+| 5   | [Print Queue](https://adventofcode.com/2024/day/5)        | [Source](src/year_2024/day_5.rs) | ⭐⭐  |
 
 ### 2022
 
