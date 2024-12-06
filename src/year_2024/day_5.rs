@@ -129,7 +129,7 @@ fn fix_invalid_sequence(
         let passed_pages = &invalid_page_sequence[..i];
         let allowed_pages = get_allowed_pages(page_number);
 
-        if !passed_pages.iter().all(|&r| !allowed_pages.contains(&r)) {
+        if passed_pages.iter().any(|&r| allowed_pages.contains(&r)) {
             for (j, &passed_page) in passed_pages.iter().enumerate() {
                 if allowed_pages.contains(&passed_page) {
                     invalid_page_sequence[i] = passed_page;
