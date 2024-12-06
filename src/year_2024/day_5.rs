@@ -138,7 +138,7 @@ fn fix_invalid_sequence(
         if let Some((j, &passed_page)) = passed_pages
             .iter()
             .enumerate()
-            .find(|&(_, &passed_page)| allowed_pages.contains(&passed_page))
+            .find(|&(_, &page)| allowed_pages.contains(&page))
         {
             invalid_page_sequence[i] = passed_page;
             invalid_page_sequence[j] = page_number;
