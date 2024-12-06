@@ -104,8 +104,12 @@ fn get_result_2(input: Vec<String>) -> i32 {
             let passed_pages = &page_sequence[..i];
             let allowed_pages = get_allowed_pages(page_number);
 
-            if !remaining_pages.iter().all(|&r| allowed_pages.contains(&r))
-                || !passed_pages.iter().all(|&r| !allowed_pages.contains(&r))
+            if !remaining_pages
+                .iter()
+                .all(|&remaining_page| allowed_pages.contains(&remaining_page))
+                || !passed_pages
+                    .iter()
+                    .all(|&passed_page| !allowed_pages.contains(&passed_page))
             {
                 invalid_page_sequences.push(page_sequence.clone());
                 break;
@@ -125,19 +129,22 @@ fn fix_invalid_sequence(
     invalid_page_sequence: &mut [i32],
     get_allowed_pages: &dyn Fn(i32) -> Vec<i32>,
 ) -> Vec<i32> {
-    for (i, &page_number) in invalid_page_sequence.iter().enumerate() {
+    let mut i = 0;
+    while i < invalid_page_sequence.len() {
+        let page_number = invalid_page_sequence[i];
         let passed_pages = &invalid_page_sequence[..i];
         let allowed_pages = get_allowed_pages(page_number);
 
-        if passed_pages.iter().any(|&r| allowed_pages.contains(&r)) {
-            for (j, &passed_page) in passed_pages.iter().enumerate() {
-                if allowed_pages.contains(&passed_page) {
-                    invalid_page_sequence[i] = passed_page;
-                    invalid_page_sequence[j] = page_number;
-                    return fix_invalid_sequence(invalid_page_sequence, get_allowed_pages);
-                }
-            }
-            return fix_invalid_sequence(invalid_page_sequence, get_allowed_pages);
+        if let Some((j, &passed_page)) = passed_pages
+            .iter()
+            .enumerate()
+            .find(|&(_, &passed_page)| allowed_pages.contains(&passed_page))
+        {
+            invalid_page_sequence[i] = passed_page;
+            invalid_page_sequence[j] = page_number;
+            i = 0;
+        } else {
+            i += 1;
         }
     }
     invalid_page_sequence.to_vec()
