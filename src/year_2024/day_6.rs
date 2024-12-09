@@ -15,13 +15,6 @@ impl DayResult for Day6_2024 {
     }
 }
 
-pub enum Direction {
-    Right,
-    Left,
-    Up,
-    Down,
-}
-
 fn parse_map(input: Vec<String>) -> Vec<Vec<char>> {
     input
         .iter()
@@ -41,16 +34,17 @@ fn get_result_1(input: Vec<String>) -> i32 {
         .find_map(|(row, line)| line.iter().position(|&c| c == GUARD).map(|col| (row, col)))
         .expect("No starting position found");
 
-    let directions = [
-        (-1, 0), // up
-        (0, 1),  // right
-        (1, 0),  // down
-        (0, -1), // left
-    ];
-
-    let mut direction = directions[0];
     map[start_row][start_col] = MARK;
 
+    let get_next_direction = |dir: (isize, isize)| match dir {
+        (-1, 0) => (0, 1),  // up to right
+        (0, 1) => (1, 0),   // right to down
+        (1, 0) => (0, -1),  // down to left
+        (0, -1) => (-1, 0), // left to up
+        _ => panic!("Invalid direction change"),
+    };
+
+    let mut current_direction = (-1, 0);
     let mut previous_position = (start_row, start_col);
     let mut current_row = start_row;
     let mut current_col = start_col;
@@ -59,20 +53,14 @@ fn get_result_1(input: Vec<String>) -> i32 {
         if map[current_row][current_col] == OBSTRUCTION {
             current_row = previous_position.0;
             current_col = previous_position.1;
-            direction = match direction {
-                (-1, 0) => directions[1], // up to right
-                (0, 1) => directions[2],  // right to down
-                (1, 0) => directions[3],  // down to left
-                (0, -1) => directions[0], // left to up
-                _ => panic!("Invalid direction change"),
-            };
+            current_direction = get_next_direction(current_direction);
         } else {
             map[current_row][current_col] = MARK;
         }
 
         previous_position = (current_row, current_col);
-        current_row = (current_row as isize + direction.0) as usize;
-        current_col = (current_col as isize + direction.1) as usize;
+        current_row = (current_row as isize + current_direction.0) as usize;
+        current_col = (current_col as isize + current_direction.1) as usize;
 
         let is_out_of_bounds = current_row >= map.len() || current_col >= map[current_row].len();
         if is_out_of_bounds {
@@ -121,6 +109,6 @@ mod tests {
     #[test]
     fn test_get_result_2() {
         let result = get_result_2(get_test_input());
-        assert_eq!(result, 0);
+        assert_eq!(result, 6);
     }
 }
