@@ -10,8 +10,7 @@ pub struct Day6_2024;
 impl DayResult for Day6_2024 {
     fn print_day_result() {
         let input = fetch_input(6, 2024);
-        println!("Result 1: {}", get_result_1(input.clone()));
-        println!("Result 2: {}", get_result_2(input));
+        println!("Result 1: {}", get_result_1(input));
     }
 }
 
@@ -73,11 +72,6 @@ fn get_result_1(input: Vec<String>) -> i32 {
         .sum::<usize>() as i32
 }
 
-#[allow(unused)]
-fn get_result_2(input: Vec<String>) -> i32 {
-    0
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -103,12 +97,5 @@ mod tests {
     fn test_get_result_1() {
         let result = get_result_1(get_test_input());
         assert_eq!(result, 41);
-    }
-
-    #[ignore = "todo"]
-    #[test]
-    fn test_get_result_2() {
-        let result = get_result_2(get_test_input());
-        assert_eq!(result, 6);
     }
 }
