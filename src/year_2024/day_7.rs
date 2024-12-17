@@ -1,3 +1,5 @@
+use core::num;
+
 use crate::day_result::DayResult;
 use crate::helpers::fetch_input;
 
@@ -14,9 +16,10 @@ impl DayResult for Day7_2024 {
     }
 }
 
+#[derive(Debug)]
 pub struct Line {
-    pub result: i32,
-    pub numbers: Vec<i32>,
+    pub result: i64,
+    pub numbers: Vec<i64>,
 }
 
 fn parse_input(input: Vec<String>) -> Vec<Line> {
@@ -27,33 +30,82 @@ fn parse_input(input: Vec<String>) -> Vec<Line> {
             let result = parts
                 .next()
                 .expect("No result found")
-                .parse::<i32>()
+                .parse::<i64>()
                 .expect("Invalid test value");
             let numbers = parts
                 .next()
                 .expect("No numbers found")
                 .split_whitespace()
-                .map(|s| s.parse::<i32>().expect("Invalid number"))
-                .collect::<Vec<i32>>();
+                .map(|s| s.parse::<i64>().expect("Invalid number"))
+                .collect::<Vec<i64>>();
             Line { result, numbers }
         })
         .collect()
 }
 
-#[allow(unused)]
-fn get_result_1(input: Vec<String>) -> i32 {
-    let mut sum = 0;
+fn get_result_1(input: Vec<String>) -> i64 {
+    parse_input(input)
+        .into_iter()
+        .filter(should_add_result)
+        .map(|line| line.result)
+        .sum()
+}
 
-    let lines = parse_input(input);
-    for line in lines {
-        let mut should_evaluate = false;
+fn should_add_result(line: &Line) -> bool {
+    let numbers_count = line.numbers.len();
+    let operators_count = numbers_count - 1;
+    let total_combinations = 2i64.pow(operators_count as u32);
+    let operators = ['+', '*'];
 
-        if should_evaluate {
-            sum += line.result;
+    let operator_combinations = (0..total_combinations).map(|num| {
+        (0..operators_count)
+            .map(|i| operators[(num >> i) as usize & 1])
+            .collect::<Vec<char>>()
+    });
+
+    let expressions: Vec<String> = operator_combinations
+        .map(|num| {
+            let mut expression = String::new();
+            for (i, n) in line.numbers.iter().enumerate() {
+                expression.push_str(&n.to_string());
+                if i < operators_count {
+                    expression.push_str(&num[i].to_string());
+                }
+            }
+            expression
+        })
+        .collect();
+
+    for expression in expressions {
+        if evaluate_expression(&expression) == line.result {
+            return true;
         }
     }
 
-    sum
+    false
+}
+
+fn evaluate_expression(expression: &str) -> i64 {
+    let mut result = 0;
+    let mut num = 0;
+    let mut sign = '+';
+
+    for (i, ch) in expression.chars().enumerate() {
+        if ch.is_ascii_digit() {
+            num = num * 10 + ch.to_digit(10).expect("Invalid digit") as i64;
+        }
+        if !ch.is_ascii_digit() || i == expression.len() - 1 {
+            match sign {
+                '+' => result += num,
+                '*' => result *= num,
+                _ => panic!("Invalid operator"),
+            }
+            sign = ch;
+            num = 0;
+        }
+    }
+
+    result
 }
 
 #[cfg(test)]
