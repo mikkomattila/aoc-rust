@@ -12,18 +12,35 @@ pub struct Day7_2024;
 impl DayResult for Day7_2024 {
     fn print_day_result() {
         let input = fetch_input(7, 2024);
-        println!("Result 1: {}", get_result_1(input.clone()));
-        println!("Result 2: {}", get_result_2(input));
+        println!("Result 1: {}", get_result_1(input));
     }
+}
+
+fn parse_input(input: Vec<String>) -> Vec<(i32, Vec<i32>)> {
+    input
+        .iter()
+        .map(|line| {
+            let mut parts = line.split(": ");
+            let test_value = parts
+                .next()
+                .unwrap()
+                .parse::<i32>()
+                .expect("Invalid test value");
+            let numbers = parts
+                .next()
+                .unwrap()
+                .split_whitespace()
+                .map(|s| s.parse::<i32>().unwrap())
+                .collect::<Vec<i32>>();
+            (test_value, numbers)
+        })
+        .collect::<Vec<(i32, Vec<i32>)>>()
 }
 
 #[allow(unused)]
 fn get_result_1(input: Vec<String>) -> i32 {
-    0
-}
+    let line = parse_input(input);
 
-#[allow(unused)]
-fn get_result_2(input: Vec<String>) -> i32 {
     0
 }
 
@@ -51,11 +68,5 @@ mod tests {
     fn test_get_result_1() {
         let result = get_result_1(get_test_input());
         assert_eq!(result, 3749);
-    }
-
-    #[test]
-    fn test_get_result_2() {
-        let result = get_result_2(get_test_input());
-        assert_eq!(result, 0);
     }
 }
