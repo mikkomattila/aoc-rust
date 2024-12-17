@@ -1,6 +1,4 @@
 use crate::day_result::DayResult;
-
-#[allow(unused)]
 use crate::helpers::fetch_input;
 
 /**
@@ -16,32 +14,46 @@ impl DayResult for Day7_2024 {
     }
 }
 
-fn parse_input(input: Vec<String>) -> Vec<(i32, Vec<i32>)> {
+pub struct Line {
+    pub result: i32,
+    pub numbers: Vec<i32>,
+}
+
+fn parse_input(input: Vec<String>) -> Vec<Line> {
     input
         .iter()
         .map(|line| {
             let mut parts = line.split(": ");
-            let test_value = parts
+            let result = parts
                 .next()
-                .unwrap()
+                .expect("No result found")
                 .parse::<i32>()
                 .expect("Invalid test value");
             let numbers = parts
                 .next()
-                .unwrap()
+                .expect("No numbers found")
                 .split_whitespace()
-                .map(|s| s.parse::<i32>().unwrap())
+                .map(|s| s.parse::<i32>().expect("Invalid number"))
                 .collect::<Vec<i32>>();
-            (test_value, numbers)
+            Line { result, numbers }
         })
-        .collect::<Vec<(i32, Vec<i32>)>>()
+        .collect()
 }
 
 #[allow(unused)]
 fn get_result_1(input: Vec<String>) -> i32 {
-    let line = parse_input(input);
+    let mut sum = 0;
 
-    0
+    let lines = parse_input(input);
+    for line in lines {
+        let mut should_evaluate = false;
+
+        if should_evaluate {
+            sum += line.result;
+        }
+    }
+
+    sum
 }
 
 #[cfg(test)]
