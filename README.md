@@ -16,6 +16,7 @@ This repository contains my solutions to Advent of Code challenges, implemented 
 | 4   | [Ceres Search](https://adventofcode.com/2024/day/4)       | [Source](src/year_2024/day_4.rs) | ⭐    |
 | 5   | [Print Queue](https://adventofcode.com/2024/day/5)        | [Source](src/year_2024/day_5.rs) | ⭐⭐  |
 | 6   | [Guard Gallivant](https://adventofcode.com/2024/day/6)    | [Source](src/year_2024/day_6.rs) | ⭐    |
+| 6   | [Bridge Repair](https://adventofcode.com/2024/day/7)      | [Source](src/year_2024/day_7.rs) |       |
 
 ### 2022
 
