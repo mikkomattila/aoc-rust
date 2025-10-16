@@ -1,5 +1,3 @@
-use core::num;
-
 use crate::day_result::DayResult;
 use crate::helpers::fetch_input;
 
