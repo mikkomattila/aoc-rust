@@ -1,4 +1,5 @@
 use crate::day_result::DayResult;
+use crate::year_2019::day_1::Day1_2019;
 use crate::year_2022::{day_1::Day1_2022, day_2::Day2_2022, day_3::Day3_2022};
 use crate::year_2024::{
     day_1::Day1_2024, day_2::Day2_2024, day_3::Day3_2024, day_4::Day4_2024, day_5::Day5_2024,
@@ -15,6 +16,10 @@ use std::env;
  */
 pub fn print_result_for_day(day_number: u8, year: u32) {
     match year {
+        2019 => match day_number{
+            1 => Day1_2019::print_day_result(),
+            _ => println!("Result for day {} in year {} not found", day_number, year),
+        }
         2022 => match day_number {
             1 => Day1_2022::print_day_result(),
             2 => Day2_2022::print_day_result(),

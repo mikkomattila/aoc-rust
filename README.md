@@ -26,6 +26,12 @@ This repository contains my solutions to Advent of Code challenges, implemented 
 | 2   | [Rock Paper Scissors](https://adventofcode.com/2022/day/2)     | [Source](src/year_2022/day_2.rs) | ⭐⭐  |
 | 3   | [Rucksack Reorganization](https://adventofcode.com/2022/day/3) | [Source](src/year_2022/day_3.rs) | ⭐⭐  |
 
+### 2019
+
+| Day | Problem                                                        | Solution                         | Stars |
+| --- | -------------------------------------------------------------- | -------------------------------- | ----- |
+| 1   | [The Tyranny of the Rocket Equation](https://adventofcode.com/2019/day/1)        | [Source](src/year_2019/day_1.rs) | ⭐⭐  |
+
 ## Prerequisites
 
 Make sure you have `Rust` and `Cargo` installed, see: [rust-lang.org](https://www.rust-lang.org/tools/install).
@@ -42,7 +48,7 @@ Either run or build the program with `Cargo`. Each solution should simply print 
 
 **Run:**
 
--   Run and get an answer for specified date. Year defaults to 2024 and is optional.
+- Run and get an answer for specified date. Year defaults to 2024 and is optional.
 
 ```sh
 make run d=1 y=2024
