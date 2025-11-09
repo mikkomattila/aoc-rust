@@ -46,3 +46,24 @@ fn get_result_2(input: Vec<i32>) -> i32 {
         .map(|n| calculate_fuel_recursive(n))
         .sum()
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn get_test_input() -> Vec<i32> {
+        vec![12, 14, 1969, 100756]
+    }
+
+    #[test]
+    fn test_get_result_1() {
+        let result = get_result_1(get_test_input());
+        assert_eq!(result, 34241);
+    }
+
+    #[test]
+    fn test_get_result_2() {
+        let result = get_result_2(get_test_input());
+        assert_eq!(result, 51316);
+    }
+}
